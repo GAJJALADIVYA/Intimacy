@@ -1,0 +1,6148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>stress</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Tokyo+Zoo&display=swap&family=Metal+Mania&family=Permanent+Marker&family=Tourney:wght@100&family=Trade+Winds&display=swap&family=Playball&display=swap&family=Metal&family=Playball&display=swap&family=Akronim&family=Metal&family=Playball&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Festive&family=Hanalei&family=Merienda+One&family=Yellowtail&display=swap&family=Ewert&family=Permanent+Marker&family=Tourney:wght@100&family=Trade+Winds&display=swap&family=Metal&family=Otomanopee+One&family=Playball&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Festive&family=Hanalei&family=Merienda+One&family=Vampiro+One&family=Yellowtail&display=swap&family=Zen+Tokyo+Zoo&display=swap&family=Fugaz+One&display=swap&family=Tourney:wght@100&display=swap&family=Creepster&family=Permanent+Marker&family=Tourney:wght@100&display=swap&family=Trade+Winds&display=swap&&family=Diplomata+SC&family=Permanent+Marker&family=Tourney:wght@100&family=Trade+Winds&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- 
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      nav {
+        background-color: pink;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1000;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 80px;
+      }
+
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .page2 {
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .header-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .notification-icon,
+      .profile-icon,
+      .nav-icon span {
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .nav-icon {
+        display: none;
+      }
+
+      .user-nav-links {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 20px;
+      }
+      .user-nav-links.active {
+        display: flex;
+        top: 60px;
+        right: 0;
+      }
+
+      @media (max-width: 768px) {
+        .nav-icon {
+          display: block;
+        }
+        .user-nav-links {
+          padding: 10px 0;
+          top: -100%;
+          flex-direction: column;
+          position: absolute;
+          right: 0;
+          transition: right 0.3s ease;
+          background-color: white;
+          width: 100%;
+          display: none;
+        }
+      }
+
+      /* Notification Container */
+      .notification-container,
+      .profile-container {
+        position: fixed;
+        top: 60px;
+        right: -400px;
+        width: 300px;
+        height: calc(100vh - 60px);
+        background-color: aliceblue;
+        background-position: center;
+        background-size: cover;
+        color: black;
+        padding: 20px;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        transition: right 0.3s ease;
+        z-index: 999;
+        padding-top: 1rem;
+      }
+
+      .notification-container h2,
+      .profile-container h2 {
+        margin-bottom: 15px;
+      }
+
+      .notification-content,
+      .profile-content {
+        overflow-y: auto;
+        max-height: calc(100vh - 140px);
+      }
+      .profile-content p {
+        color: black;
+        display: inline-flex;
+      }
+
+      .pf-cont {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        align-items: space-between;
+      }
+      .close-btn2 {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        background-color: darkred;
+        height: 40px;
+        width: 40px;
+      }
+
+      .logout-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: brown;
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+
+      /* Overlay for dark theme */
+      .overlay {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background-color: rgba(0, 0, 0, 0.5);
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s ease;
+        z-index: 1;
+      }
+
+      .overlay.active {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .notification-container.show,
+      .profile-container.show {
+        right: 0;
+      }
+
+      .modeToggle-icon {
+        /* background-color: #000; */
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+        border-radius: 50%;
+        border-top-left-radius: 5%;
+        border-bottom-left-radius: 50%;
+        bottom: 45%;
+        right: 2px;
+        padding: 5px;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+      }
+
+      body.dark-mode .modeToggle-icon {
+        background-color: #fff;
+      }
+
+      .toggle-moon-icon {
+        cursor: pointer;
+        height: 40px;
+        width: 40px;
+        color: #000;
+      }
+      .toggle-sun-icon {
+        display: block;
+        height: 40px;
+        width: 40px;
+        color: #fff;
+      }
+
+      body.dark-mode .page {
+        background-color: #000;
+        /* color: #fff; */
+      }
+
+      body.light-mode .toggle-moon-icon {
+        display: none;
+        /* width: 30px; */
+      }
+
+      body.dark-mode .toggle-moon-icon {
+      }
+
+      body.dark-mode .toggle-sun-icon {
+        display: none;
+        /* width: 30px; */
+      }
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 99;
+        background: black;
+        height: 60px;
+      }
+      .general-header .logo {
+        font-size: 2rem;
+        font-family: "Playball", cursive;
+        color: darkblue;
+        padding-top: 1rem;
+      }
+
+      .general-header .logo i {
+        color: red;
+        font-size: 120%;
+      }
+      .general-header {
+        height: 80px;
+      }
+      .user-header .logo {
+        font-size: 2rem;
+        font-family: "Playball", cursive;
+        color: darkblue;
+        padding-top: 1rem;
+      }
+      .user-header .logo i {
+        color: red;
+        font-size: 120%;
+      }
+      .user-header {
+        height: 80px;
+      }
+      .logo {
+        font-size: 4rem;
+        font-family: "Playball", cursive;
+        color: darkblue;
+        padding-top: 1rem;
+      }
+      .logo i {
+        color: red;
+        font-size: 150%;
+      }
+      /* Medium screens (Tablets) */
+      @media (max-width: 1024px) {
+        .general-header,
+        .user-header {
+          height: 70px;
+        }
+
+        .general-header .logo,
+        .user-header .logo {
+          font-size: 2.5rem;
+          padding-top: 0.8rem;
+        }
+      }
+
+      /* Small screens (Mobile phones) */
+      @media (max-width: 768px) {
+        .general-header,
+        .user-header {
+          height: 60px;
+        }
+
+        .general-header .logo,
+        .user-header .logo {
+          font-size: 2rem;
+          padding-top: 0.5rem;
+        }
+
+        .general-header .logo i,
+        .user-header .logo i {
+          font-size: 90%;
+        }
+      }
+
+      /* Extra small screens (very small devices) */
+      @media (max-width: 480px) {
+        .general-header,
+        .user-header {
+          height: 50px;
+        }
+
+        .general-header .logo,
+        .user-header .logo {
+          font-size: 1.5rem;
+          padding-top: 0.3rem;
+        }
+
+        .general-header .logo i,
+        .user-header .logo i {
+          font-size: 80%;
+        }
+      }
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /* login page starts */
+      /* From Uiverse.io by micaelgomestavares */
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 30px;
+        width: 450px;
+        border-radius: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      ::placeholder {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      .form button {
+        align-self: flex-end;
+      }
+
+      .flex-column > label {
+        color: #151717;
+        font-weight: 600;
+      }
+
+      .inputForm {
+        border: 1.5px solid #ecedec;
+        border-radius: 10px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        transition: 0.2s ease-in-out;
+      }
+
+      .input {
+        margin-left: 10px;
+        border-radius: 10px;
+        border: none;
+        width: 85%;
+        height: 100%;
+      }
+
+      .input:focus {
+        outline: none;
+      }
+
+      .inputForm:focus-within {
+        border: 1.5px solid #2d79f3;
+      }
+
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+      }
+
+      .flex-row > div > label {
+        font-size: 14px;
+        color: black;
+        font-weight: 400;
+      }
+
+      .span {
+        font-size: 14px;
+        margin-left: 5px;
+        color: #2d79f3;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .button-submit {
+        margin: 20px 0 10px 0;
+        background-color: #151717;
+        border: none;
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+        border-radius: 10px;
+        height: 50px;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      .button-submit:hover {
+        background-color: #252727;
+      }
+
+      .p {
+        text-align: center;
+        color: black;
+        font-size: 14px;
+        margin: 5px 0;
+      }
+
+      .btn {
+        margin-top: 10px;
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        gap: 10px;
+        border: 1px solid #ededef;
+        background-color: white;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+      }
+
+      .btn:hover {
+        border: 1px solid #2d79f3;
+      }
+      /* eye */
+      #hide1 {
+        display: none;
+      }
+      #hide3 {
+        display: none;
+      }
+
+      .page {
+        margin: 0px;
+      }
+      /* login-page */
+      .login {
+        position: relative;
+        width: 900px;
+        min-height: 500px;
+        /* background-image: url(images/imagelogo.jpg); */
+        background-position: center;
+        background-size: cover;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.444);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        padding: 20px 0;
+      }
+      .login img {
+        width: 60%;
+      }
+      .page1 {
+        background-image: url(images/logo.jpg);
+        background-position: center;
+        background-size: cover;
+        margin-top: -20px;
+      }
+      @media (max-width: 480px) {
+        .page1 {
+          margin-top: 10px;
+        }
+      }
+      .page1 h1 {
+        color: black;
+        font-size: 3rem;
+        text-align: center;
+      }
+
+      /* Media Queries for All Devices */
+      @media (max-width: 768px) {
+        .form {
+          width: 100%;
+          padding: 20px;
+        }
+        .login {
+          width: calc(100% - 40px);
+          margin: 0 20px;
+        }
+        .login img {
+          width: 60%;
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .login {
+          width: calc(100% - 20px);
+          margin: 0 10px;
+        }
+        .login img {
+          width: 60%;
+          display: none;
+        }
+      }
+
+      /* login page ends */
+
+      navbar-new ul li {
+        margin: 0 1rem;
+      }
+
+      .navbar-new ul li a {
+        color: black;
+        text-decoration: none;
+        position: relative;
+        font-size: 2rem;
+        text-decoration: none;
+        font-weight: 500;
+        margin-left: 40px;
+        padding-top: 1rem;
+        align-items: center;
+      }
+      /*-----------------------------------*\
+     #style.css
+   \*-----------------------------------*/
+
+      /**
+
+                                             */
+
+      /*-----------------------------------*\
+         #CUSTOM PROPERTY
+     \*-----------------------------------*/
+
+      :root {
+        /**
+     * colors
+       */
+
+        --space-cadet: hsl(224, 48%, 22%);
+        --red-crayola: hsl(342, 100%, 50%);
+        --black-coral: hsl(219, 13%, 44%);
+        --blue-ryb: hsl(244, 86%, 59%);
+        --cultured: hsl(0, 0%, 96%);
+        --white: hsl(0, 0%, 100%);
+
+        /**
+                                                 * typography
+                                                 */
+
+        --ff-be-vietnam-pro: "Be Vietnam Pro", sans-serif;
+
+        --fs-1: 1.875rem;
+        --fs-2: 1.5rem;
+        --fs-3: 1.063rem;
+        --fs-4: 0.875rem;
+        --fs-5: 0.813rem;
+
+        --fw-500: 500;
+        --fw-600: 600;
+        --fw-700: 700;
+
+        /**
+                                                 * transition
+                                                 */
+
+        --transition: 0.25s ease;
+        --transition-2: 0.5s ease;
+
+        /**
+       * spacing
+     */
+
+        /**
+           * border radius
+         */
+
+        --radius-4: 4px;
+        --radius-8: 8px;
+        --radius-12: 12px;
+      }
+
+      /*-----------------------------------*\
+       #RESET
+       \*-----------------------------------*/
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      li {
+        list-style: none;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a,
+      img,
+      span,
+      input,
+      button,
+      ion-icon {
+        display: block;
+      }
+
+      input,
+      button {
+        background: none;
+        border: none;
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      html {
+        font-family: var(--ff-be-vietnam-pro);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--white);
+      }
+
+      /*-----------------------------------*\
+           #REUSED STYLE
+       \*-----------------------------------*/
+
+      .w-100 {
+        width: 100%;
+      }
+
+      .h1,
+      .h2,
+      .h3 {
+        color: var(--space-cadet);
+        line-height: 1.2;
+      }
+
+      .h1 {
+        font-size: var(--fs-1);
+      }
+
+      .h2 {
+        font-size: var(--fs-2);
+      }
+
+      .h3 {
+        font-size: var(--fs-3);
+      }
+
+      .section-text,
+      .features .card-text {
+        color: var(--black-coral);
+        font-size: var(--fs-4);
+        line-height: 1.8;
+        margin-bottom: 15px;
+      }
+
+      .btn {
+        font-size: var(--fs-4);
+        font-weight: var(--fw-500);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        padding: 14px 25px;
+        border-radius: var(--radius-4);
+        transition: var(--transition);
+      }
+
+      .btn-primary {
+        color: var(--white);
+        background: var(--red-crayola);
+      }
+
+      .btn > ion-icon {
+        font-size: 16px;
+      }
+
+      .btn-primary:is(:hover, :focus) {
+        background: var(--blue-ryb);
+      }
+
+      .btn-secondary {
+        background: var(--blue-ryb);
+        color: var(--white);
+      }
+
+      .btn-secondary:is(:hover, :focus) {
+        background: var(--red-crayola);
+      }
+
+      .section-subtitle {
+        color: var(--black-coral);
+        font-size: var(--fs-5);
+        font-weight: var(--fw-600);
+        margin-bottom: 15px;
+      }
+
+      /*-----------------------------------*\
+     #HERO
+         \*-----------------------------------*/
+
+      .hero {
+        background: var(--cultured);
+
+        padding-bottom: var(--section-padding);
+      }
+
+      .hero .shape {
+        display: none;
+      }
+
+      .hero-banner {
+        margin-bottom: 30px;
+      }
+
+      .hero-content {
+        text-align: center;
+      }
+
+      .hero-title .hero .section-text {
+        margin-bottom: 20px;
+      }
+
+      .hero .btn {
+        margin-inline: auto;
+      }
+
+      @media (max-width: 480px) {
+        .hero {
+          margin-top: 30px;
+        }
+      }
+
+      /*-----------------------------------*\
+       #FEATURES
+          \*-----------------------------------*/
+
+      .features {
+        padding-block: var(--section-padding);
+      }
+
+      .features .section-title {
+        margin-bottom: 40px;
+      }
+
+      .features :is(.section-subtitle, .section-title) {
+        text-align: center;
+      }
+
+      .features-list {
+        display: grid;
+        gap: 25px;
+      }
+
+      .features-card {
+        border: 1px solid hsl(0, 0%, 90%);
+        padding: 30px;
+        text-align: center;
+      }
+
+      .features-card .card-icon {
+        max-width: max-content;
+        margin-inline: auto;
+        margin-bottom: 30px;
+      }
+
+      .features-card .card-title {
+        margin-bottom: 15px;
+      }
+
+      .features-card .card-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        color: var(--red-crayola);
+        font-size: var(--fs-5);
+        font-weight: var(--fw-600);
+        transition: var(--transition);
+      }
+
+      .features-card .card-link:is(:hover, :focus) {
+        gap: 10px;
+        color: var(--space-cadet);
+      }
+
+      /*-----------------------------------*\
+      #SERVICE
+    \*-----------------------------------*/
+
+      .service {
+        background: var(--cultured);
+        padding-block: var(--section-padding);
+      }
+
+      .service-banner {
+        margin-bottom: 30px;
+      }
+
+      .service-content:first-of-type {
+        padding-bottom: 50px;
+        border-bottom: 1px solid hsla(0, 0%, 0%, 0.05);
+        margin-bottom: 50px;
+      }
+
+      .service .section-title {
+        margin-bottom: 30px;
+      }
+
+      .service-item {
+        background: var(--white);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 12px 20px;
+        box-shadow: 0 5px 25px 10px hsla(0, 0%, 0%, 0.02);
+        border-radius: var(--radius-8);
+      }
+
+      .service-item:not(:last-child) {
+        margin-bottom: 20px;
+      }
+
+      .service-item-icon {
+        background: var(--cultured);
+        color: var(--red-crayola);
+        min-width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .service-item-icon ion-icon {
+        --ionicon-stroke-width: 50px;
+      }
+
+      .service-item:hover .service-item-icon {
+        background: var(--red-crayola);
+        color: var(--white);
+      }
+
+      /*-----------------------------------*\
+      #BLOG
+     \*-----------------------------------*/
+
+      .blog {
+        padding-block: var(--section-padding);
+      }
+
+      .blog :is(.section-subtitle, .section-title) {
+        text-align: center;
+      }
+
+      .blog .section-title {
+        margin-bottom: 40px;
+      }
+
+      .blog-list {
+        display: grid;
+        gap: 25px;
+      }
+
+      .blog-card {
+        background: var(--white);
+        box-shadow: 0 2px 25px 10px hsla(0, 0%, 0%, 0.1);
+        border-radius: var(--radius-12);
+        overflow: hidden;
+      }
+
+      .blog-banner {
+        aspect-ratio: 2 / 1.3;
+        overflow: hidden;
+      }
+
+      .blog-banner :is(a, img) {
+        height: 100%;
+      }
+
+      .blog-banner img {
+        object-fit: cover;
+        transition: var(--transition-2);
+      }
+
+      .blog-card:hover .blog-banner img {
+        transform: scale(1.1);
+      }
+
+      .blog-content {
+        padding: 20px;
+      }
+
+      .blog-meta-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .blog-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--black-coral);
+        font-size: var(--fs-5);
+        text-transform: uppercase;
+      }
+
+      .blog-meta-item > ion-icon {
+        color: var(--red-crayola);
+        --ionicon-stroke-width: 45px;
+      }
+
+      .blog-meta-item .blog-meta-link {
+        color: var(--black-coral);
+        transition: var(--transition);
+      }
+
+      .blog-meta-item .blog-meta-link:is(:hover, :focus) {
+        color: var(--red-crayola);
+      }
+
+      .blog-title > a {
+        color: inherit;
+        transition: var(--transition);
+      }
+
+      .blog-title > a:is(:hover, :focus) {
+        color: var(--red-crayola);
+      }
+
+      /*-----------------------------------*\
+      #NEWSLETTER
+    \*-----------------------------------*/
+
+      .newsletter {
+        background: var(--cultured);
+        padding-block: var(--section-padding);
+      }
+
+      .newsletter-banner {
+        margin-bottom: 30px;
+      }
+
+      .newsletter .section-title {
+        margin-bottom: 25px;
+      }
+
+      .input-field {
+        background: var(--white);
+        outline: 1px solid hsla(0, 0%, 0%, 0.1);
+        padding: 15px 20px;
+        border-radius: var(--radius-4);
+        margin-bottom: 15px;
+        transition: var(--transition);
+      }
+
+      .input-field:focus {
+        outline-color: var(--red-crayola);
+      }
+
+      /*-----------------------------------*\
+        #FOOTER
+       \*-----------------------------------*/
+
+      .footer-top {
+        padding-block: var(--section-padding);
+      }
+
+      .location-text {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 30px;
+      }
+
+      .location-icon {
+        background: var(--cultured);
+        color: var(--red-crayola);
+        font-size: 22px;
+        min-width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+      }
+
+      .address {
+        color: var(--space-cadet);
+        font-size: var(--fs-5);
+        font-weight: var(--fw-600);
+        line-height: 1.6;
+        font-style: normal;
+      }
+
+      .quicklink-title,
+      .contact-title {
+        font-weight: var(--fw-700);
+      }
+
+      .quicklink-list {
+        column-count: 2;
+      }
+
+      .quicklink-list > li {
+        padding-block: 8px;
+      }
+
+      .quicklink {
+        color: var(--black-coral);
+        font-size: var(--fs-4);
+        transition: var(--transition);
+      }
+
+      .quicklink:is(:hover, :focus) {
+        color: var(--red-crayola);
+      }
+
+      .contact-list {
+        background: var(--white);
+        padding: 20px;
+        border-radius: var(--radius-4);
+        box-shadow: 0 2px 50px 10px hsla(0, 0%, 0%, 0.08);
+      }
+
+      .contact-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .contact-item:first-child {
+        padding-bottom: 8px;
+        border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+        margin-bottom: 8px;
+      }
+
+      .contact-icon {
+        background: var(--cultured);
+        color: var(--red-crayola);
+        min-width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        font-size: 18px;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .contact-icon ion-icon {
+        --ionicon-stroke-width: 40px;
+      }
+
+      .contact-item:hover .contact-icon {
+        background: var(--red-crayola);
+        color: var(--white);
+      }
+
+      .contact-link {
+        color: var(--black-coral);
+        font-size: var(--fs-4);
+        transition: var(--transition);
+      }
+
+      .contact-link:is(:hover, :focus) {
+        color: var(--red-crayola);
+      }
+
+      .footer-bottom {
+        background: black;
+        padding-block: 30px;
+      }
+
+      .copyright {
+        color: var(--white);
+        font-size: var(--fs-4);
+        line-height: 1.8;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      .copyright > a {
+        display: inline-block;
+        color: inherit;
+        text-decoration: underline;
+        transition: var(--transition);
+      }
+
+      .copyright > a:is(:hover, :focus) {
+        color: var(--red-crayola);
+      }
+
+      .social-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .social-link {
+        background: hsla(0, 0%, 100%, 0.2);
+        color: var(--white);
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        transition: var(--transition);
+      }
+
+      .social-link:is(:hover, :focus) {
+        background: var(--red-crayola);
+      }
+
+      /*-----------------------------------*\
+       #GO TO TOP
+      \*-----------------------------------*/
+
+      .go-top {
+        background: var(--white);
+        color: var(--space-cadet);
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 20px;
+        width: 45px;
+        height: 45px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        box-shadow: 0 2px 10px hsla(0, 0%, 0%, 0.1);
+        opacity: 0;
+        transform: translateY(10px);
+        visibility: hidden;
+        transition: var(--transition);
+        z-index: 2;
+      }
+
+      .go-top.active {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .go-top:is(:hover, :focus) {
+        background: var(--blue-ryb);
+        color: var(--white);
+      }
+
+      /*-----------------------------------*\
+      #MEDIA QUERIES
+       \*-----------------------------------*/
+
+      /**
+       * responsive larger than 575px screen
+       */
+
+      @media (min-width: 575px) {
+        /**
+        * REUSED STYLE
+        */
+
+        .container {
+          max-width: 520px;
+          margin-inline: auto;
+        }
+
+        /**
+         * FEATURES
+          */
+
+        .features-list {
+          grid-template-columns: 1fr 1fr;
+          gap: 40px 30px;
+        }
+
+        .features-card {
+          border: none;
+          padding: 0;
+        }
+      }
+
+      /**
+       * responsive larger than 768px screen
+         */
+
+      @media (min-width: 768px) {
+        /**
+      * base font size
+          */
+
+        html {
+          font-size: 17.5px;
+        }
+
+        /**
+           * CUSTOM PROPERTY
+         */
+
+        :root {
+          /**
+           * typography
+           */
+
+          --fs-1: 2.286rem;
+          --fs-2: 1.829rem;
+        }
+
+        /**
+         * REUSED STYLE
+       */
+
+        .container {
+          max-width: 700px;
+        }
+
+        /**
+         * FEATURES
+        */
+
+        .features-card {
+          text-align: left;
+        }
+
+        .features-card .card-icon {
+          margin-inline: 0;
+        }
+
+        .features-card .card-icon img {
+          width: 60px;
+        }
+
+        .features-card .card-link {
+          justify-content: flex-start;
+        }
+
+        /**
+        * SERVICE
+          */
+
+        .service-item:not(:last-child) {
+          margin-bottom: 30px;
+        }
+
+        .service-list {
+          padding-right: 80px;
+        }
+
+        .service-item:nth-child(even) {
+          transform: translateX(80px);
+        }
+
+        /**
+             * BLOG
+           */
+
+        .blog-list {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        /**
+            * FOOTER
+             */
+
+        .footer-top .container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 30px 60px;
+        }
+
+        .footer-bottom .container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .copyright {
+          margin-bottom: 0;
+        }
+      }
+
+      /**
+          * responsive larger than 992px screen
+                */
+
+      @media (min-width: 992px) {
+        /**
+           * base font size
+              */
+
+        html {
+          font-size: 18px;
+        }
+
+        /**
+        * CUSTOM PROPERTY
+                */
+
+        :root {
+          /**
+          * typography
+                */
+
+          --fs-1: 2.571rem;
+          --fs-2: 1.944rem;
+          --fs-3: 1.167rem;
+
+          /**
+             * spacin
+       */
+
+          --section-padding: 120px;
+        }
+
+        /**
+               * REUSED STYLE
+           */
+
+        .container {
+          max-width: 950px;
+        }
+
+        .section-title {
+          max-width: 20ch;
+          margin-inline: auto;
+        }
+
+        /**
+                   * HERO         */
+
+        .hero .container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+        }
+
+        .hero {
+          padding-top: 10px;
+        }
+
+        .hero-banner {
+          margin-bottom: 0;
+          order: 1;
+        }
+
+        .hero-content {
+          text-align: left;
+        }
+
+        .hero .btn {
+          margin-inline: 0;
+        }
+
+        /**
+           * FEATURES
+       */
+
+        .features-list {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .features-card .card-icon img {
+          width: unset;
+        }
+
+        /**
+         * SERVICE
+         */
+
+        .service .container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+          gap: 100px 40px;
+        }
+
+        .service-banner {
+          margin-bottom: 0;
+        }
+
+        .service-content:first-of-type {
+          padding-bottom: 0;
+          border-bottom: none;
+          margin-bottom: 0;
+        }
+
+        .service-list {
+          padding-right: 50px;
+        }
+
+        .service-item:nth-child(even) {
+          transform: translateX(50px);
+        }
+
+        .service-item-icon {
+          min-width: 40px;
+          height: 40px;
+          font-size: 1.125rem;
+        }
+
+        .service-banner:last-of-type {
+          order: 1;
+        }
+
+        /**
+         * NEWSLETTER
+                  */
+
+        .newsletter .container {
+          display: flex;
+          align-items: center;
+          gap: 50px;
+        }
+
+        .newsletter-banner {
+          width: 50%;
+          margin-bottom: 0;
+          order: 1;
+        }
+
+        .newsletter-content {
+          width: 50%;
+        }
+
+        .newsletter-form {
+          display: flex;
+          gap: 25px;
+        }
+
+        .input-field {
+          margin-bottom: 0;
+        }
+
+        .newsletter .btn {
+          min-width: max-content;
+          padding-inline: 15px;
+        }
+
+        /**
+          * FOOTER
+              */
+
+        .footer-top .container {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 30px;
+        }
+
+        .contact-list {
+          padding: 30px;
+        }
+
+        .contact-item:first-child {
+          padding-bottom: 15px;
+          margin-bottom: 15px;
+        }
+      }
+
+      /**
+      * responsive larger than 1200px screen
+               */
+
+      @media (min-width: 1200px) {
+        /**
+         * CUSTOM PROPERTY
+           */
+
+        :root {
+          /**
+             * typography
+              */
+
+          --fs-1: 3rem;
+          --fs-2: 2.333rem;
+          --fs-3: 1.222rem;
+          --fs-4: 0.944rem;
+        }
+
+        /**
+          * REUSED STYLE
+                */
+
+        .container {
+          max-width: 1150px;
+        }
+
+        /**
+             * HERO         */
+
+        .hero {
+          position: relative;
+          z-index: 1;
+          overflow: hidden;
+        }
+
+        .hero .shape {
+          display: block;
+          position: absolute;
+          user-select: none;
+          z-index: -1;
+        }
+
+        .hero .shape-1 {
+          top: 0;
+          left: -80px;
+          height: 100%;
+        }
+
+        .hero .shape-2 {
+          bottom: 60px;
+          left: 30%;
+        }
+
+        .hero .shape-3 {
+          top: 0;
+          right: -80px;
+          height: 100%;
+        }
+
+        /**
+        * FEATURES
+       */
+
+        .features .section-title {
+          margin-bottom: 70px;
+        }
+
+        /**
+       * SERVICE
+         */
+
+        .service .container {
+          column-gap: 60px;
+        }
+
+        .service .section-title {
+          margin-bottom: 50px;
+        }
+
+        /**
+           * BLOG
+            */
+
+        .blog .section-title {
+          margin-bottom: 70px;
+        }
+
+        .blog-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        /**
+            * NEWSLETTER
+          */
+
+        .newsletter .container {
+          gap: 80px;
+        }
+
+        .newsletter-banner {
+          width: 45%;
+        }
+
+        .newsletter-content {
+          width: 55%;
+        }
+      }
+      /* search starts */
+      .blog-s {
+        text-align: center;
+        padding: 25px;
+      }
+      .container-s {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .search-bar {
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .search-bar input {
+        width: 100%;
+        max-width: 600px;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      .exercise-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        position: relative;
+        animation: fadeIn 0.5s ease;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .exercise-card img,
+      .exercise-card video {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .exercise-card .content {
+        padding: 1rem;
+      }
+
+      .exercise-card h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.4rem;
+      }
+
+      .exercise-card p {
+        margin: 0;
+        color: #555;
+      }
+
+      .tags {
+        margin-top: 0.5rem;
+      }
+
+      .tag {
+        display: inline-block;
+        background: #6200ea;
+        color: white;
+        border-radius: 4px;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.8rem;
+        margin-right: 0.3rem;
+      }
+
+      /* Responsive Grid */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .exercise-card:hover {
+        transform: scale(1.05);
+      }
+
+      /* Modal Styling */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        max-width: 500px;
+        width: 80%;
+      }
+
+      .modal button {
+        background: #6200ea;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .modal button:hover {
+        background: #5b00d1;
+      }
+
+      /* Close Button */
+      .close-btn-s {
+        background: #f44336;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .close-btn-s:hover {
+        background: #e53935;
+      }
+      /*  */
+      /*filter starts*/
+      .container-f {
+        max-width: 1200px;
+        margin: 20px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .search-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      #search-bar {
+        width: 100%;
+        max-width: 60%;
+        padding: 12px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .filters select {
+        padding: 12px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 180px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      /* Results Section */
+      #results-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+      }
+
+      .result-card {
+        background-color: #fff;
+        padding: 15px;
+        width: 30%;
+        box-sizing: border-box;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .result-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .result-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .result-card h3 {
+        font-size: 1.2rem;
+        margin-top: 15px;
+        color: #333;
+      }
+
+      .result-card p {
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 10px;
+      }
+
+      .result-card .rating {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #f39c12;
+      }
+
+      /* Responsive Design for Mobile Devices */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        .search-section {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        #search-bar {
+          max-width: 90%;
+        }
+
+        .filters select {
+          max-width: 90%;
+          margin: 5px 0;
+        }
+
+        .result-card {
+          width: 100%;
+          margin-bottom: 15px;
+        }
+
+        .filters {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+
+      /* Tablet Devices (768px to 1024px) */
+      @media (min-width: 768px) and (max-width: 1024px) {
+        .result-card {
+          width: 45%;
+        }
+
+        .filters {
+          flex-wrap: wrap;
+        }
+
+        .filters select {
+          max-width: 45%;
+        }
+      }
+
+      /* Large Desktop Devices */
+      @media (min-width: 1025px) {
+        .result-card {
+          width: 30%;
+        }
+      }
+      /*  */
+      /*  */
+      /* profile starts */
+
+      .container-p {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-image: url(images/image.png);
+        background-position: center;
+        background-size: cover;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      /* Profile Section */
+      .profile-section {
+        margin-bottom: 30px;
+      }
+
+      .profile-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .profile-details label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+      }
+
+      .profile-details input {
+        width: 100%;
+        padding: 8px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+      .profile-details label {
+        text-align: start;
+      }
+      .profile-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+
+      /* Settings Section */
+      .settings-section {
+        margin-bottom: 30px;
+        text-align: start;
+      }
+
+      .settings-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .setting-item {
+        margin-bottom: 20px;
+      }
+
+      .setting-item label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .setting-item input[type="checkbox"],
+      .setting-item select {
+        padding: 10px;
+        width: 100%;
+        max-width: 250px;
+        font-size: 1rem;
+        border-radius: 5px;
+      }
+
+      /* Preview Section */
+      .preview-section {
+        margin-top: 30px;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      .preview-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .preview-area {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Delete Section */
+      .delete-section {
+        margin-top: 30px;
+        text-align: center;
+      }
+
+      #delete-all {
+        padding: 10px 20px;
+        background-color: lightpink;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.1rem;
+      }
+
+      #delete-all:hover {
+        background-color: #d32f2f;
+      }
+      /*
+                                                   */
+      /*  */
+
+      /* support.css */
+      /*  */
+      /*  */
+      /*  */
+      /*  */
+      /* premium */
+
+      .p {
+        margin-top: 10px;
+      }
+
+      .p button {
+        margin: 5px;
+        padding: 10px 20px;
+        border: none;
+        background-color: pink;
+        color: black;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      button:hover {
+        background-color: #ddd;
+      }
+
+      .container-pre {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .dashboard-cards {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .card {
+        background-color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .insights {
+        background-color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .plans {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+      }
+
+      .plan {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        min-width: 250px;
+        padding-bottom: 1rem;
+      }
+      .plan p {
+        line-height: 2rem;
+        text-align: start;
+      }
+      button .pay-btn,
+      .paypal-btn {
+        margin-top: 10px;
+        padding: 10px 10px;
+        border: none;
+        background-color: pink;
+        color: black;
+        border-radius: 5px;
+        cursor: pointer;
+        align-items: center;
+        font-size: 1rem;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      #transaction-history {
+        margin-top: 40px;
+      }
+
+      #transactions-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      #transactions-table th,
+      #transactions-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+      }
+
+      #transactions-table th {
+        background-color: pink;
+        color: black;
+      }
+
+      /* Media Queries for Responsiveness */
+      @media (max-width: 768px) {
+        .p button {
+          padding: 8px 16px;
+        }
+
+        .dashboard-cards {
+          flex-direction: column;
+        }
+
+        .plan {
+          flex: 1 1 100%;
+        }
+
+        .container-pre {
+          padding: 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .dashboard-cards {
+          flex-direction: column;
+        }
+
+        .plan {
+          flex: 1 1 100%;
+        }
+
+        .plans {
+          flex-direction: column;
+        }
+
+        button {
+          padding: 8px 16px;
+        }
+      }
+
+      /* alert */
+      .alert {
+        padding: 20px;
+        background-color: lightgray;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .alert button {
+        background-color: lightpink;
+        color: black;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .alert button:hover {
+        background-color: #e60000;
+      }
+      .button-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+      }
+
+      input {
+        padding: 0.5rem;
+        font-size: 1rem;
+        width: 150%;
+        max-width: 300px;
+        margin: 1rem 0;
+        border: 2px solid black;
+        border-radius: 4px;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      ul .contact-section {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li .contact-section {
+        background-color: #fff;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .error {
+        color: red;
+      }
+
+      /*  */
+      /* remainder */
+      /* notification */
+
+      .container-note {
+        padding: 20px;
+        background-color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2 {
+        color: #333;
+      }
+
+      section {
+        margin-bottom: 30px;
+      }
+
+      /* Progress Bar */
+      .progress-bar {
+        width: 100%;
+        background-color: #ddd;
+        border-radius: 5px;
+      }
+
+      .bar {
+        height: 20px;
+        width: 80%; /* Default to 80% */
+        background-color: #4caf50;
+        border-radius: 5px;
+      }
+
+      /* Gallery Styles */
+      .exercise-gallery {
+        display: flex;
+        gap: 15px;
+      }
+
+      .exercise-gallery img {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+      }
+
+      /* Milestone Styles */
+      .container-note .milestone-item {
+        list-style-type: none;
+        background-color: #fff;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .container-note .milestone-item img {
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+        object-fit: cover;
+      }
+      .calendar label {
+        color: green;
+        display: flex;
+        font-family: 1rem;
+      }
+      /* Reflection Section */
+
+      #reflection-list {
+        margin-bottom: 15px;
+      }
+
+      .reflection-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .reflection-item button {
+        background: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      textarea {
+        width: 100%;
+        height: 80px;
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      /*  */
+      /*  */
+
+      /* help & support */
+
+      .container-h {
+        padding: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .container-h h2 {
+        font-size: 2remrem;
+        margin-bottom: 15px;
+        color: #000;
+      }
+
+      .container-h section {
+        margin-bottom: 30px;
+      }
+
+      .container-h .faq-item {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+
+      .container-h .faq-question {
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+        color: #000;
+      }
+
+      .container-h .faq-answer {
+        display: none;
+        margin-top: 10px;
+        color: black;
+        font-size: 1rem;
+      }
+
+      .container-h button {
+        background-color: lightpink;
+        color: black;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .container-h button:hover {
+        background-color: #45a049;
+      }
+
+      .container-h form label {
+        display: block;
+        margin-top: 15px;
+        text-align: start;
+      }
+
+      .container-h form textarea {
+        width: 100%;
+        height: 100px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .feedback label {
+        font-size: 1.5rem;
+      }
+      .container-h form select {
+        margin-top: 5px;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .container-h #feedback-status {
+        margin-top: 15px;
+        font-weight: bold;
+        color: green;
+      }
+
+      /*  */
+      /* rate & review */
+      /* reviews own */
+
+      .heading {
+        text-align: center;
+        margin: 30px 0;
+      }
+
+      .heading h1 {
+        font-size: 36px;
+        color: mediumvioletred;
+      }
+
+      .heading p {
+        font-size: 18px;
+        color: #777;
+      }
+
+      .container-r {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      .review-form {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .review-form h2 {
+        font-size: 24px;
+        color: black;
+      }
+
+      .review-form label {
+        font-size: 16px;
+        margin: 10px 0 5px;
+        display: block;
+        color: #000;
+        text-align: start;
+      }
+
+      .review-form input,
+      .review-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+      }
+
+      .review-form button {
+        padding: 10px 20px;
+        background-color: lightpink;
+        color: black;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .review-form button:hover {
+        background-color: #45a049;
+      }
+
+      .reviews {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .reviews h2 {
+        font-size: 24px;
+        color: black;
+      }
+
+      .reviews .review-item {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+      }
+
+      .reviews .review-item h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .reviews .review-item p {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .reviews .review-item .delete-button {
+        background-color: var(--seashell);
+        border: none;
+        color: black;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .reviews .review-item .delete-button:hover {
+        text-decoration: underline;
+        background-color: mediumvioletred;
+      }
+
+      .reviews .review-item .rating {
+        font-size: 16px;
+        color: palevioletred;
+      }
+
+      #aggregated-rating {
+        margin-top: 20px;
+        font-size: 18px;
+        color: black;
+      }
+      /*
+                                                   */
+      /* chart */
+      .container-c {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #chat-section,
+      #video-section {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+      }
+
+      #chat-window {
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-image: url(images/c1.png);
+        background-position: center;
+        background-size: cover;
+      }
+
+      #chat-input {
+        display: flex;
+        gap: 10px;
+      }
+
+      #chat-input input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      #chat-input button {
+        background-color: lightpink;
+        color: black;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 1rem;
+      }
+
+      #chat-input button:hover {
+        background-color: #45a049;
+      }
+
+      #video-container {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      video {
+        width: 45%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      #video-controls {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      #video-controls button {
+        background-color: lightpink;
+        color: black;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 1rem;
+      }
+
+      #video-controls button:hover {
+        background-color: #45a049;
+      }
+      /*  */
+      /*  */
+      /* notification */
+      .container-n {
+        padding: 15px;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .container-n h2 {
+        text-align: center;
+        color: black;
+        font-size: 20px;
+      }
+
+      .container-n form {
+        margin-bottom: 20px;
+      }
+      #notificationForm label,
+      input {
+        font-size: 1rem;
+        text-align: center;
+      }
+      .container-n label {
+        font-size: 1rem;
+        margin-right: 10px;
+      }
+      .container-n input {
+        font-size: 13px;
+        flex-wrap: wrap;
+        width: 50%;
+      }
+
+      .container-n button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .container-n button:hover {
+        background-color: #45a049;
+      }
+
+      .container-n .notification-box {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #333;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        display: none;
+        max-width: 300px;
+        z-index: 1000;
+      }
+
+      .container-n .notification-box p {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        /* For tablets and smaller screens */
+        .container-n {
+          padding: 15px;
+          max-width: 100%;
+        }
+
+        .container-n h1,
+        h2 {
+          font-size: 1.5em;
+        }
+
+        .container-n label {
+          font-size: 14px;
+          flex-wrap: wrap;
+        }
+
+        .container-n button {
+          padding: 12px;
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        /* For mobile screens */
+        .container-n {
+          padding: 10px;
+          max-width: 100%;
+        }
+
+        .container-n h1,
+        h2 {
+          font-size: 1.3em;
+        }
+
+        .container-n label {
+          font-size: 13px;
+          flex-wrap: wrap;
+        }
+        .container-n input {
+          font-size: 13px;
+          flex-wrap: wrap;
+          width: 50%;
+        }
+
+        .container-n button {
+          padding: 10px;
+          font-size: 14px;
+        }
+
+        .container-n .notification-box {
+          bottom: 10px;
+          right: 10px;
+          max-width: 250px;
+          font-size: 12px;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        /* For large desktop screens */
+        .container-n {
+          max-width: 800px;
+        }
+
+        .container-n h1,
+        h2 {
+          font-size: 2em;
+        }
+
+        .container-n label {
+          font-size: 10px;
+        }
+
+        .container-n button {
+          padding: 15px;
+          font-size: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body class="light-mode">
+    <!-- General User Header -->
+    <header id="general-header" class="general-header">
+      <nav class="navbar-new">
+        <a href="#" onclick="showPage('home')" class="logo"
+          ><i class="fa-solid fa-heart-pulse"></i>Together</a
+        >
+        <ul>
+          <li><a href="#" id="home-link">Home</a></li>
+          <li><a href="#" id="login-link">Login</a></li>
+          <!-- <li><a href="#" id="register-link">Register</a></li> -->
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Logged-in User Header -->
+    <header id="user-header" class="user-header">
+      <nav class="navbar-new">
+        <a href="#" onclick="showPage('home')" class="logo"
+          ><i class="fa-solid fa-heart-pulse"></i>Together</a
+        >
+        <ul class="user-nav-links">
+          <li><a href="#" id="home-user-link">Home</a></li>
+          <li><a href="#" id="sample-1-link"> Intimacy Building Tools</a></li>
+          <li><a href="#" id="sample-2-link">Support</a></li>
+        </ul>
+        <div class="header-icons">
+          <div class="notification-icon" id="notificationIcon">
+            <span>&#128276;</span>
+            <!-- <p id="not-count-num"></p> -->
+          </div>
+          <div class="profile-icon" id="profileIcon">
+            <span>&#128100;</span>
+          </div>
+          <div class="nav-icon" id="navToggleIcon">
+            <span>&#9776;</span>
+          </div>
+        </div>
+      </nav>
+
+      <div id="modeToggle" class="modeToggle-icon">
+        <img
+          src="https://res.cloudinary.com/dzrc9ejln/image/upload/v1729097552/half-moon_1_xgpusv.png"
+          class="toggle-moon-icon"
+          alt=""
+        />
+        <!-- <ion-icon name="sunny-outline" class="toggle-sun-icon"></ion-icon>
+        <ion-icon name="moon-outline" class="toggle-moon-icon"></ion-icon> -->
+        <img
+          src="https://res.cloudinary.com/dzrc9ejln/image/upload/v1729096535/sun_q4ad24.png"
+          class="toggle-sun-icon"
+          alt=""
+        />
+      </div>
+    </header>
+
+    <div class="notification-container" id="notificationContainer">
+      <button class="close-btn2" id="closeNotificationBtn">&times;</button>
+      <h2>Notifications</h2>
+      <div class="cafe-notification-content" id="notify-alert-cont">
+        <div class="container-n">
+          <form id="notificationForm">
+            <label>
+              <input type="checkbox" id="exerciseReminder" /> Exercise Reminders
+            </label>
+            <br />
+            <label>
+              <input type="checkbox" id="progressMilestone" /> Progress
+              Milestones
+            </label>
+            <br />
+            <label>
+              <input type="checkbox" id="newContent" /> New Content Additions
+            </label>
+            <br />
+            <label>
+              <input type="checkbox" id="promotionalOffers" /> Promotional
+              Offers
+            </label>
+            <br />
+            <button type="submit">Save Preferences</button>
+          </form>
+
+          <h2>Set Future Notification</h2>
+          <label for="futureDate">Choose a date and time:</label>
+          <input type="datetime-local" id="futureDate" />
+          <button onclick="setFutureNotification()">
+            Set Future Notification
+          </button>
+        </div>
+
+        <div id="notificationBox" class="notification-box">
+          <p id="notificationText"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-container" id="profileContainer">
+      <button class="close-btn2" id="closeProfileBtn">&times;</button>
+      <div class="pf-cont">
+        <h2>User Profile</h2>
+        <div class="profile-content">
+          <p><strong>Name:</strong> <span id="user-name-text"></span></p>
+          <p><strong>Email:</strong> <span id="user-name-email"></span></p>
+          <button class="logout-btn" id="update-link">Update</button>
+          <button class="logout-btn" id="logout-link">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content Sections -->
+    <main>
+      <!-- Home Page -->
+      <section id="home-page" class="page">
+        <!--  -->
+        <!--  -->
+        <!-- 
+        - #HERO
+      -->
+
+        <section class="hero" id="home">
+          <img
+            src="images/shape1.png"
+            alt="Illustration art"
+            class="shape shape-1"
+          />
+          <img
+            src="images/shape2.png"
+            alt="Illustration art"
+            class="shape shape-2"
+          />
+          <img
+            src="images/shape3.png"
+            alt="Illustration art"
+            class="shape shape-3"
+          />
+
+          <div class="container">
+            <figure class="hero-banner">
+              <img src="images/ri.svg" alt="Illustration art" class="w-100" />
+            </figure>
+
+            <div class="hero-content">
+              <h2 class="h1 hero-title">
+                “Intimacy is not about being inseparable; it's about being
+                separate and still feeling connected.”
+              </h2>
+
+              <p class="section-text">
+                “In intimate relationships, we must learn to love ourselves as
+                much as we love others.”
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 
+      - #FEATURES
+    -->
+
+        <section class="features" id="features">
+          <div class="container">
+            <p class="section-subtitle">How Can Help You</p>
+
+            <h2 class="h2 section-title">
+              We’re helping teams do their best work
+            </h2>
+
+            <ul class="features-list">
+              <li>
+                <div class="features-card">
+                  <div class="card-icon">
+                    <img
+                      src="images/features-icon-1.png"
+                      alt="Illustration icon"
+                    />
+                  </div>
+
+                  <h3 class="h3 card-title">Check-In Prompts</h3>
+
+                  <p class="card-text">
+                    Regular prompts encouraging team members to share how
+                    they’re feeling.
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <div class="features-card">
+                  <div class="card-icon">
+                    <img
+                      src="images/features-icon-2.png"
+                      alt="Illustration icon"
+                    />
+                  </div>
+
+                  <h3 class="h3 card-title">Shared Success Stories</h3>
+
+                  <p class="card-text">
+                    A feature to celebrate individual and team milestones
+                    together Interactive modules.
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <div class="features-card">
+                  <div class="card-icon">
+                    <img
+                      src="images/features-icon-3.png"
+                      alt="Illustration icon"
+                    />
+                  </div>
+
+                  <h3 class="h3 card-title">Connection Challenges</h3>
+
+                  <p class="card-text">
+                    Activities like “Two Truths and a Lie” or team personality
+                    quizzes to foster mutual understanding.
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <div class="features-card">
+                  <div class="card-icon">
+                    <img
+                      src="images/features-icon-4.png"
+                      alt="Illustration icon"
+                    />
+                  </div>
+
+                  <h3 class="h3 card-title">Trust Meter</h3>
+
+                  <p class="card-text">
+                    Visualize and gamify trust-building by tracking progress
+                    through team activities.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 
+      - #SERVICE
+    -->
+
+        <section class="service" id="service">
+          <div class="container">
+            <figure class="service-banner">
+              <img
+                src="images/service-1.png"
+                alt="Illustration art"
+                class="w-100"
+              />
+            </figure>
+
+            <div class="service-content">
+              <p class="section-subtitle">Services We Offer</p>
+
+              <h2 class="h2 section-title">
+                We are here, to help startup your relationships
+              </h2>
+
+              <ul class="service-list">
+                <li class="service-item">
+                  <div class="service-item-icon">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 service-item-title">Team Bonding Activities</h3>
+                </li>
+
+                <li class="service-item">
+                  <div class="service-item-icon">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 service-item-title">
+                    Emotional Intelligence Tools
+                  </h3>
+                </li>
+
+                <li class="service-item">
+                  <div class="service-item-icon">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 service-item-title">
+                    Trust-Building Exercises
+                  </h3>
+                </li>
+
+                <li class="service-item">
+                  <div class="service-item-icon">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 service-item-title">Personalized Coaching</h3>
+                </li>
+              </ul>
+            </div>
+
+            <figure class="service-banner">
+              <img src="images/r3.svg" alt="Illustration art" class="w-100" />
+            </figure>
+
+            <div class="service-content">
+              <p class="section-subtitle">Our Services</p>
+
+              <h2 class="h2 section-title">Best service in your area</h2>
+
+              <ul class="service-list">
+                <li class="service-item">
+                  <div class="service-item-icon">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 service-item-title">
+                    Regular Assessments and Insights
+                  </h3>
+                </li>
+
+                <li class="service-item">
+                  <div class="service-item-icon">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 service-item-title">
+                    Celebrations and Gratitude Services
+                  </h3>
+                </li>
+
+                <li class="service-item">
+                  <div class="service-item-icon">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 service-item-title">Communication Enhancers</h3>
+                </li>
+
+                <li class="service-item">
+                  <div class="service-item-icon">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </div>
+
+                  <h3 class="h3 service-item-title">
+                    Creative Collaboration Spaces
+                  </h3>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 
+      - #BLOG
+    -->
+
+        <section class="blog" id="blog">
+          <div class="container">
+            <p class="section-subtitle">Latest News</p>
+
+            <h2 class="h2 section-title">Our latest articles & resources</h2>
+
+            <ul class="blog-list">
+              <li>
+                <div class="blog-card">
+                  <figure class="blog-banner">
+                    <a href="#">
+                      <img src="images/r4.svg" alt="review" class="w-100" />
+                    </a>
+                  </figure>
+
+                  <div class="blog-content">
+                    <ul class="blog-meta-list">
+                      <!-- <li class="blog-meta-item">
+                        <ion-icon name="pricetag-outline"></ion-icon>
+
+                       
+                      </li> -->
+
+                      <li class="blog-meta-item">
+                        <ion-icon name="calendar-number-outline"></ion-icon>
+
+                        <time class="blog-meta-time" datetime="2022-02-25"
+                          >4 April, 2024</time
+                        >
+                      </li>
+                    </ul>
+
+                    <h3 class="h3 blog-title">
+                      <a href="#"
+                        >"In every relationship, there are two ways of being
+                        together: one is to hold back, the other is to dive
+                        in."</a
+                      >
+                    </h3>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="blog-card">
+                  <figure class="blog-banner">
+                    <a href="#">
+                      <img src="images/r3.jpeg" alt="review " class="w-100" />
+                    </a>
+                  </figure>
+
+                  <div class="blog-content">
+                    <ul class="blog-meta-list">
+                      <!-- <li class="blog-meta-item">
+                        <ion-icon name="pricetag-outline"></ion-icon>
+                      </li> -->
+
+                      <li class="blog-meta-item">
+                        <ion-icon name="calendar-number-outline"></ion-icon>
+
+                        <time class="blog-meta-time" datetime="2022-02-25"
+                          >2 march, 2024</time
+                        >
+                      </li>
+                    </ul>
+
+                    <h3 class="h3 blog-title">
+                      <a href="#"
+                        >"True intimacy is a sacred experience. It never exposes
+                        its secret trust and belonging to the eyes of the
+                        world."</a
+                      >
+                    </h3>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="blog-card">
+                  <figure class="blog-banner">
+                    <a href="#">
+                      <img src="images/r5.svg" alt="review" class="w-100" />
+                    </a>
+                  </figure>
+
+                  <div class="blog-content">
+                    <ul class="blog-meta-list">
+                      <!-- <li class="blog-meta-item">
+                        <ion-icon name="pricetag-outline"></ion-icon>
+                      </li> -->
+
+                      <li class="blog-meta-item">
+                        <ion-icon name="calendar-number-outline"></ion-icon>
+
+                        <time class="blog-meta-time" datetime="2022-02-25"
+                          >25 Feb, 2024</time
+                        >
+                      </li>
+                    </ul>
+
+                    <h3 class="h3 blog-title">
+                      <a href="#"
+                        >"When we seek to discover the best in others, we
+                        somehow bring out the best in ourselves."</a
+                      >
+                    </h3>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 
+      - #NEWSLETTER
+    -->
+
+        <section class="newsletter" id="newsletter">
+          <div class="container">
+            <figure class="newsletter-banner">
+              <img
+                src="images/newsletter.png"
+                alt="Illustration art"
+                class="w-100"
+              />
+            </figure>
+
+            <div class="newsletter-content">
+              <p class="section-subtitle">Subscribe Our Newsletter</p>
+
+              <h2 class="h2 section-title">
+                The latest resources, sent to your inbox weekly
+              </h2>
+
+              <form action="" class="newsletter-form">
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Enter your email address"
+                  class="input-field"
+                />
+
+                <button
+                  type="submit"
+                  onclick="alert('you have Subscribed Now')"
+                  class="btn btn-primary"
+                >
+                  <span>Subscribe Now</span>
+
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- 
+    - #FOOTER
+  -->
+
+        <footer class="footer">
+          <div class="footer-top">
+            <div class="container">
+              <div class="footer-brand">
+                <a href="#" onclick="showPage('home')" class="logo"
+                  ><i class="fa-solid fa-heart-pulse"></i>Together</a
+                >
+
+                <p class="section-text">
+                  "Intimacy is not purely physical—it is the act of connecting
+                  deeply with someone, sharing thoughts, fears, and dreams."
+                </p>
+
+                <div class="location-text">
+                  <div class="location-icon">
+                    <ion-icon name="location-outline"></ion-icon>
+                  </div>
+
+                  <address class="address">
+                    2750 Quadra Street Victoria, Canada.
+                  </address>
+                </div>
+              </div>
+
+              <div class="quicklink-box">
+                <p class="h3 quicklink-title">Quick links</p>
+
+                <ul class="quicklink-list">
+                  <li>
+                    <a href="#" class="quicklink">Helping Teams</a>
+                  </li>
+
+                  <li>
+                    <a href="#" class="quicklink">Services</a>
+                  </li>
+
+                  <li>
+                    <a href="#" class="quicklink">Best Services</a>
+                  </li>
+
+                  <li>
+                    <a href="#" class="quicklink">Reviews</a>
+                  </li>
+
+                  <li>
+                    <a href="#" class="quicklink">Subscribe</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="contact">
+                <p class="h3 contact-title">Contact with us</p>
+
+                <ul class="contact-list">
+                  <li class="contact-item">
+                    <div class="contact-icon">
+                      <ion-icon name="mail-outline"></ion-icon>
+                    </div>
+
+                    <a href="mailto:hello@solutry.com" class="contact-link"
+                      >hello@together.com</a
+                    >
+                  </li>
+
+                  <li class="contact-item">
+                    <div class="contact-icon">
+                      <ion-icon name="call-outline"></ion-icon>
+                    </div>
+
+                    <a href="tel:+14854560102" class="contact-link"
+                      >+1-485-xxx-0102</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <div class="container">
+              <p class="copyright">
+                &copy; 2024 <a href="#"></a>. All Rights Reserved
+              </p>
+
+              <ul class="social-list">
+                <li>
+                  <a
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-facebook"></ion-icon>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://x.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4iLCJteCI6IjIifQ%3D%3D%22%7D"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-twitter"></ion-icon>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.youtube.com/"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-youtube"></ion-icon>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://www.instagram.com/accounts/login/"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-instagram"></ion-icon>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </footer>
+        <!--  -->
+        <!--  -->
+      </section>
+
+      <!--  -->
+      <!--  -->
+
+      <!-- Login Page -->
+
+      <section id="login-page" class="page1">
+        <h1>Login</h1>
+
+        <div class="login">
+          <form class="form" id="login-form">
+            <div class="flex-column">
+              <label>Email </label>
+            </div>
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="0 0 32 32"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Layer_3" data-name="Layer 3">
+                  <path
+                    d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"
+                  ></path>
+                </g>
+              </svg>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your Email"
+                id="login-username"
+              />
+            </div>
+
+            <div class="flex-column">
+              <label>Password </label>
+            </div>
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="-64 0 512 512"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"
+                ></path>
+                <path
+                  d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"
+                ></path>
+              </svg>
+              <input
+                type="password"
+                class="input"
+                placeholder="Enter your Password"
+                id="login-password"
+              />
+              <span onclick="myFunction()">
+                <i id="hide1" class="fa fa-eye"></i>
+                <i id="hide2" class="fa fa-eye-slash"></i>
+              </span>
+            </div>
+
+            <div class="flex-row">
+              <span class="span" id="forgot-link">Forgot password? </span>
+            </div>
+            <button class="button-submit" type="submit">Sign In</button>
+            <p class="p">
+              Don't have an account?
+              <span class="span" id="register-link">Sign Up</span>
+            </p>
+          </form>
+          <img src="images/ri.svg" alt="" />
+        </div>
+      </section>
+      <!-- forgotpassword -->
+      <section id="forgot-page" class="page1" style="display: none">
+        <h1>Forgot Password</h1>
+        <div class="login">
+          <form class="form" id="forgot-form">
+            <div class="flex-column">
+              <label>Email </label>
+            </div>
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="0 0 32 32"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Layer_3" data-name="Layer 3">
+                  <path
+                    d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"
+                  ></path>
+                </g>
+              </svg>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your Email"
+                id="forgot-username"
+              />
+            </div>
+
+            <div
+              class="flex-colum"
+              id="forgot-passwordContainer"
+              style="display: none"
+            >
+              <label>Password </label>
+              <div class="inputForm">
+                <svg
+                  height="20"
+                  viewBox="-64 0 512 512"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"
+                  ></path>
+                  <path
+                    d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"
+                  ></path>
+                </svg>
+                <input
+                  type="password"
+                  class="input"
+                  placeholder="Enter your Password"
+                  id="forgot-password"
+                />
+                <span onclick="myFunction2()">
+                  <i id="hide3" class="fa fa-eye"></i>
+                  <i id="hide4" class="fa fa-eye-slash"></i>
+                </span>
+              </div>
+            </div>
+
+            <button class="button-submit" id="forgotVerifie" type="button">
+              verify
+            </button>
+
+            <button class="button-submit" id="forgotsubmit" type="submit">
+              Reset
+            </button>
+            <p class="p">
+              Remenber Password<span class="span" id="login2-link">Login</span>
+            </p>
+          </form>
+          <img src="images/ri.svg" alt="" />
+        </div>
+      </section>
+
+      <!-- Register Page -->
+      <section id="register-page" class="page1">
+        <h1>Register</h1>
+        <div class="login">
+          <form class="form" id="register-form">
+            <div class="flex-column">
+              <label>Name</label>
+            </div>
+
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="0 0 32 32"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Layer_3" data-name="Layer 3">
+                  <path
+                    d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"
+                  ></path>
+                </g>
+              </svg>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your Name"
+                id="register-name"
+              />
+            </div>
+
+            <div class="flex-column">
+              <label>Enail</label>
+            </div>
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="0 0 32 32"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Layer_3" data-name="Layer 3">
+                  <path
+                    d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"
+                  ></path>
+                </g>
+              </svg>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your Email"
+                id="register-useremail"
+              />
+            </div>
+
+            <div class="flex-column">
+              <label>Password </label>
+            </div>
+
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="-64 0 512 512"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"
+                ></path>
+                <path
+                  d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"
+                ></path>
+              </svg>
+              <input
+                type="password"
+                class="input"
+                placeholder="Enter your Password"
+                id="register-password"
+              />
+              <span onclick="myFunction3()">
+                <i id="hide5" class="fa fa-eye"></i>
+                <i id="hide6" class="fa fa-eye-slash"></i>
+              </span>
+            </div>
+
+            <div class="flex-row">
+              <div>
+                <input type="checkbox" required id="register-checkbox" />
+                <label> Accept Terms & Conditions </label>
+              </div>
+            </div>
+            <button class="button-submit" type="submit">Sign up</button>
+            <span class="span"
+              >Already have an account
+              <a href="#" id="login3-link">Login</a></span
+            >
+          </form>
+          <img src="images/ri.svg" alt="" />
+        </div>
+      </section>
+
+      <!-- User  Update -->
+      <section id="update-user-page" class="page1" style="display: none">
+        <h1>Update</h1>
+
+        <div class="login">
+          <form class="form" id="update-form">
+            <div class="flex-column">
+              <label>Name</label>
+            </div>
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="0 0 32 32"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Layer_3" data-name="Layer 3">
+                  <path
+                    d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"
+                  ></path>
+                </g>
+              </svg>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your Name"
+                id="update-name"
+              />
+            </div>
+
+            <div class="flex-column">
+              <label>Enail</label>
+            </div>
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="0 0 32 32"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Layer_3" data-name="Layer 3">
+                  <path
+                    d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"
+                  ></path>
+                </g>
+              </svg>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your Email"
+                id="update-username"
+              />
+            </div>
+
+            <div class="flex-column">
+              <label>Password </label>
+            </div>
+            <div class="inputForm">
+              <svg
+                height="20"
+                viewBox="-64 0 512 512"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"
+                ></path>
+                <path
+                  d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"
+                ></path>
+              </svg>
+              <input
+                type="password"
+                class="input"
+                placeholder="Enter your Password"
+                id="update-password"
+              />
+              <span onclick="myFunction4()">
+                <i id="hide7" class="fa fa-eye"></i>
+                <i id="hide8" class="fa fa-eye-slash"></i>
+              </span>
+            </div>
+
+            <div class="flex-row">
+              <div>
+                <input type="checkbox" required id="register-checkbox" />
+                <label> Accept Terms & Conditions </label>
+              </div>
+            </div>
+            <button class="button-submit" type="submit">update</button>
+          </form>
+          <img src="images/image.png" alt="" />
+        </div>
+      </section>
+
+      <section id="sample1-page" class="page" style="display: none">
+        <!-- <h1>Sample 1 page</h1>
+        <p>Details of sample 1</p> -->
+        <!--  -->
+        <!--  -->
+        <!-- search starts -->
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <h2 class="h2 section-title">Interactive Intimacy Exercises</h2>
+
+            <div class="container-s">
+              <div class="search-bar">
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search exercises..."
+                  oninput="filterExercises()"
+                />
+              </div>
+              <div class="grid" id="exerciseGrid">
+                <!-- Exercise Cards will be populated here dynamically -->
+              </div>
+            </div>
+
+            <!-- Modal for displaying exercise details -->
+            <div id="exerciseModal" class="modal">
+              <div class="modal-content">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+                <button class="close-btn-s" onclick="closeModal()">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- search ends -->
+        <!-- chart starts -->
+
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <h2 class="h2 section-title">Communication Tools</h2>
+            <section class="container-c">
+              <section id="chat-section">
+                <div id="chat-header">
+                  <h2>Chat</h2>
+                </div>
+                <div id="chat-window"></div>
+                <div id="chat-input">
+                  <input
+                    type="text"
+                    id="message"
+                    placeholder="Type a message..."
+                  />
+                  <button id="send-button">Send</button>
+                  <button id="choose-file">Choose File</button>
+                </div>
+              </section>
+
+              <section id="video-section">
+                <div id="video-header">
+                  <h2>Video Conferencing</h2>
+                </div>
+                <div id="video-container">
+                  <video id="local-video" autoplay muted></video>
+                  <video id="remote-video" autoplay></video>
+                </div>
+                <div id="video-controls">
+                  <button id="start-call">Start Call</button>
+                  <button id="end-call">End Call</button>
+                </div>
+              </section>
+            </section>
+          </div>
+        </section>
+        <!-- charts ends -->
+        <!-- filter starts -->
+
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <p class="section-subtitle">Find Exercises, Tools, and Features</p>
+
+            <h2 class="h2 section-title">Crisis Management Games</h2>
+            <div class="container-f">
+              <!-- Search Section -->
+              <div class="search-section">
+                <input
+                  type="text"
+                  id="search-bar"
+                  placeholder="Search for exercises, tools, or features..."
+                />
+
+                <!-- Filters and Sorting -->
+                <div class="filters">
+                  <select id="category-filter">
+                    <option value="">Select Category</option>
+                    <option value="exercise">Exercise</option>
+                    <option value="tool">Communication Tool</option>
+                    <option value="feature">App Feature</option>
+                  </select>
+
+                  <select id="popularity-filter">
+                    <option value="">Sort by Popularity</option>
+                    <option value="high">High to Low</option>
+                    <option value="low">Low to High</option>
+                  </select>
+
+                  <select id="rating-filter">
+                    <option value="">Sort by Rating</option>
+                    <option value="high">High to Low</option>
+                    <option value="low">Low to High</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Results Section -->
+              <div id="results-section">
+                <!-- Results will be populated here by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- filter ends -->
+        <!-- profile starts -->
+
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <h2 class="h2 section-title">User Profile & Settings</h2>
+            <div class="container-p">
+              <!-- Profile Section -->
+              <div class="profile-section">
+                <h2>Enter Your Profile Details</h2>
+                <div class="profile-details">
+                  <label for="username">Name (Only letters):</label>
+                  <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter your name"
+                    oninput="validateUsername()"
+                  />
+
+                  <label for="email">Email:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                  />
+
+                  <label for="profile-image">Profile Image:</label>
+                  <input
+                    type="file"
+                    id="profile-image"
+                    accept="image/*"
+                    onchange="updatePreview()"
+                  />
+                </div>
+              </div>
+
+              <!-- Settings Section -->
+              <div class="settings-section">
+                <h2>App Settings</h2>
+
+                <!-- Layout Customization -->
+                <div class="setting-item">
+                  <label for="layout-select">Select Layout:</label>
+                  <select id="layout-select" onchange="updatePreview()">
+                    <option value="default">Default Layout</option>
+                    <option value="compact">Compact Layout</option>
+                    <option value="expanded">Expanded Layout</option>
+                  </select>
+                </div>
+
+                <!-- Dashboard Modules Customization -->
+                <div class="setting-item">
+                  <label for="dashboard-modules"
+                    >Select Dashboard Modules:</label
+                  >
+                  <select
+                    id="dashboard-modules"
+                    multiple
+                    onchange="updatePreview()"
+                  >
+                    <option value="stats">Statistics</option>
+                    <option value="news">News Feed</option>
+                    <option value="tasks">Tasks</option>
+                    <option value="settings">Settings</option>
+                  </select>
+                </div>
+
+                <!-- Reset/Delete Settings Button -->
+                <button id="reset-settings" onclick="resetSettings()">
+                  Reset Settings
+                </button>
+              </div>
+
+              <!-- Preview Section for All Details -->
+              <div class="preview-section">
+                <h2>Preview</h2>
+                <div id="preview-area" class="preview-area">
+                  <p>Preview your profile and settings here.</p>
+                </div>
+              </div>
+
+              <!-- Delete All Button -->
+              <div class="delete-section">
+                <button id="delete-all" onclick="deleteAll()">
+                  Delete All
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- profile ends -->
+        <!-- - #FOOTER -->
+
+        <footer class="footer">
+          <div class="footer-bottom">
+            <div class="container">
+              <p class="copyright">
+                &copy; 2024 <a href="#"></a>. All Rights Reserved
+              </p>
+              <a href="#" onclick="showPage('home')" class="logo"
+                ><i class="fa-solid fa-heart-pulse"></i>Together</a
+              >
+              <ul class="social-list">
+                <li>
+                  <a
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-facebook"></ion-icon>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://x.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4iLCJteCI6IjIifQ%3D%3D%22%7D"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-twitter"></ion-icon>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://www.youtube.com/"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-youtube"></ion-icon>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://www.youtube.com/"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-youtube"></ion-icon>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </footer>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+      </section>
+      <!--  -->
+      <!--  -->
+      <!--  -->
+
+      <section id="sample2-page" class="page" style="display: none">
+        <!--  -->
+        <!--  -->
+
+        <!-- premium starts -->
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <h2 class="h2 section-title">premium Integration</h2>
+            <section class="container-pre">
+              <div class="p">
+                <button id="btn-dashboard">Dashboard</button>
+                <button id="btn-premium">Premium Features</button>
+              </div>
+              <!-- Dashboard Section -->
+              <section id="dashboard" class="hidden">
+                <h2>User Dashboard</h2>
+                <div class="dashboard-cards">
+                  <div class="card">
+                    <h3>Progress</h3>
+                    <p>
+                      <strong>80%</strong> of your intimacy goals completed this
+                      month.
+                    </p>
+                  </div>
+                  <div class="card">
+                    <h3>Spending</h3>
+                    <p>
+                      Total Premium Spending:
+                      <strong id="total-spent">$0</strong>
+                    </p>
+                  </div>
+                  <div class="card">
+                    <h3>Engagement</h3>
+                    <p>
+                      You completed <strong>12 exercises</strong> and sent
+                      <strong>25 messages</strong> this week.
+                    </p>
+                  </div>
+                </div>
+                <div class="insights">
+                  <h3>Insights</h3>
+                  <p>
+                    Tip: Increase your communication frequency to see a 15%
+                    boost in engagement!
+                  </p>
+                </div>
+              </section>
+
+              <!-- Premium Features Section -->
+              <section id="premium-features">
+                <h2>Choose Your Premium Plan</h2>
+                <div class="plans">
+                  <div class="plan">
+                    <h3>Basic Plan</h3>
+                    <p>✅ Access to one-on-one chats.</p>
+                    <p>✅ Video calls limited to 10 minutes.</p>
+                    <p>❌ Basic file sharing (up to 50MB).</p>
+                    <h5>$10/month</h5>
+                    <button
+                      class="pay-btn"
+                      data-price="10"
+                      data-plan="Basic Plan"
+                    >
+                      Pay with Stripe
+                    </button>
+                    <button
+                      class="paypal-btn"
+                      data-price="10"
+                      data-plan="Basic Plan"
+                    >
+                      Pay with PayPal
+                    </button>
+                  </div>
+                  <div class="plan">
+                    <h3>Premium Plan</h3>
+                    <p>✅ Unlimited video calls.</p>
+                    <p>✅ Enhanced file sharing (up to 50MB)</p>
+                    <p>❌ one-on-one and group chats.</p>
+                    <h5>$25/month</h5>
+
+                    <button
+                      class="pay-btn"
+                      data-price="25"
+                      data-plan="Premium Plan"
+                    >
+                      Pay with Stripe
+                    </button>
+                    <button
+                      class="paypal-btn"
+                      data-price="25"
+                      data-plan="Premium Plan"
+                    >
+                      Pay with PayPal
+                    </button>
+                  </div>
+                  <div class="plan">
+                    <h3>Elite Plan</h3>
+                    <p>✅ Priority Support</p>
+                    <p>✅ Record video calls and save locally</p>
+                    <p>✅ one-on-one and group chats.</p>
+                    <h5>$50/month</h5>
+
+                    <button
+                      class="pay-btn"
+                      data-price="50"
+                      data-plan="Elite Plan"
+                    >
+                      Pay with Stripe
+                    </button>
+                    <button
+                      class="paypal-btn"
+                      data-price="50"
+                      data-plan="Elite Plan"
+                    >
+                      Pay with PayPal
+                    </button>
+                  </div>
+                </div>
+                <p class="total">
+                  Total Spent on Premium Features:
+                  <strong id="premium-total">$0</strong>
+                </p>
+              </section>
+
+              <!-- Transaction History Section -->
+              <section id="transaction-history">
+                <h2>Transaction History</h2>
+                <table id="transactions-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Plan</th>
+                      <th>Amount</th>
+                      <th>Payment Method</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Transactions will be dynamically inserted here -->
+                  </tbody>
+                </table>
+              </section>
+            </section>
+          </div>
+        </section>
+
+        <!-- premium ends -->
+        <!--  -->
+        <!-- alert starts -->
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <h2 class="h2 section-title">🚨 Safety Features</h2>
+            <!-- Panic Button -->
+            <section class="alert">
+              <section class="safety-section">
+                <h2>Panic Button</h2>
+                <button class="panic-button" id="panicButton">
+                  Emergency Alert
+                </button>
+                <p id="alertMessage" class="hidden"></p>
+              </section>
+
+              <!-- Manage Trusted Contacts -->
+              <section class="contact-section">
+                <h2>Manage Trusted Contacts</h2>
+                <form id="addContactForm">
+                  <label for="contact"
+                    >Enter Trusted Contact's Phone Number:</label
+                  >
+                  <input
+                    type="text"
+                    id="contact"
+                    placeholder="e.g., +1234567890"
+                    required
+                  />
+                  <button type="submit" id="addButton">Add Contact</button>
+                </form>
+                <p id="addResponse" class="hidden"></p>
+                <p id="errorMessage" class="error hidden"></p>
+                <ul id="contactList">
+                  <!-- List of contacts will appear here -->
+                </ul>
+                <button id="shareContactsButton" class="hidden">
+                  Share Contacts
+                </button>
+                <p id="shareResponse" class="hidden"></p>
+              </section>
+
+              <!-- Share Activity Details -->
+              <section class="share-section">
+                <h2>Share Activity Details</h2>
+                <button id="shareDetailsButton">Share Activity</button>
+                <p id="shareResponse" class="hidden"></p>
+              </section>
+            </section>
+          </div>
+        </section>
+
+        <!-- alerts ends -->
+        <!--  -->
+        <!-- remainder starts -->
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <h2 class="h2 section-title">Progress Tracking</h2>
+            <div class="container-note">
+              <!-- Relationship Progress Section -->
+              <section class="progress">
+                <h2>Relationship Progress</h2>
+                <div class="progress-bar">
+                  <div id="progress-bar" class="bar"></div>
+                </div>
+                <p>Completed: <span id="completed-percentage">80%</span></p>
+              </section>
+
+              <!-- Completed Exercises Section -->
+              <section class="completed-exercises">
+                <h2>Completed Exercises</h2>
+                <div class="exercise-gallery" id="exercise-gallery">
+                  <!-- Completed exercises with images -->
+                </div>
+              </section>
+
+              <!-- Milestones Achieved Section -->
+              <section class="milestones">
+                <h2>Milestones Achieved</h2>
+                <ul id="milestone-list">
+                  <!-- Milestones with images -->
+                </ul>
+              </section>
+
+              <!-- Personal Reflections Section -->
+              <section class="reflections">
+                <h2>Personal Reflections</h2>
+                <div id="reflection-list"></div>
+                <textarea
+                  id="reflection-input"
+                  placeholder="Write your reflection here..."
+                ></textarea>
+                <button id="add-reflection">Add Reflection</button>
+              </section>
+
+              <!-- Calendar Integration Section -->
+              <section class="calendar">
+                <h2>Schedule Intimacy-Building Activities</h2>
+                <label for="activity-date">Choose a date: </label>
+                <input type="date" id="activity-date" />
+                <label for="activity-time">Choose a time:</label>
+                <input type="time" id="activity-time" />
+                <button id="schedule-activity">
+                  Add Activity to Google Calendar
+                </button>
+                <p id="error-message" style="color: red; display: none">
+                  Invalid date! Please select a future date and time.
+                </p>
+              </section>
+            </div>
+          </div>
+        </section>
+        <!-- remainder ends -->
+        <!--  -->
+        <!-- help and support starts -->
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <h2 class="h2 section-title">Hep & Support</h2>
+            <div class="container-h">
+              <!-- FAQs Section -->
+              <section class="faqs">
+                <h2>FAQs</h2>
+                <div class="faq-item">
+                  <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How do I change my profile picture?</span>
+                    <span class="faq-toggle">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    <p>
+                      Go to your profile, click on your picture, and upload a
+                      new image.
+                    </p>
+                  </div>
+                </div>
+                <div class="faq-item">
+                  <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Can I reset my password?</span>
+                    <span class="faq-toggle">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    <p>
+                      Yes, click "Forgot Password" on the login screen to reset
+                      it.
+                    </p>
+                  </div>
+                </div>
+                <div class="faq-item">
+                  <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How can I report an issue?</span>
+                    <span class="faq-toggle">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    <p>
+                      Use the feedback form below to report any issues or
+                      suggest improvements.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Feedback Section -->
+              <section class="feedback">
+                <h2>Feedback & Suggestions</h2>
+                <form id="feedback-form">
+                  <label for="feedback-type">Type of Feedback:</label>
+                  <select id="feedback-type">
+                    <option value="suggestion">Suggestion</option>
+                    <option value="issue">Issue</option>
+                  </select>
+
+                  <label for="feedback-message">Your Feedback:</label>
+                  <textarea
+                    id="feedback-message"
+                    placeholder="Enter your feedback here..."
+                    required
+                  ></textarea>
+
+                  <button type="submit">Submit Feedback</button>
+                </form>
+                <p id="feedback-status"></p>
+              </section>
+            </div>
+          </div>
+        </section>
+        <!-- help and support ends -->
+        <!-- rate and review starts -->
+        <section class="blog-s" id="blog">
+          <div class="container">
+            <h2 class="h2 section-title">Rate & Reviews</h2>
+
+            <div class="container-r">
+              <!-- Review Form -->
+              <div class="review-form">
+                <h2>Submit a Review</h2>
+                <label for="rating">Rating (1-5):</label>
+                <input type="number" id="rating" min="1" max="5" required />
+
+                <label for="review">Review:</label>
+                <textarea id="review" required></textarea>
+
+                <label for="image">Upload Image (optional):</label>
+                <input type="file" id="image" accept="image/*" />
+
+                <button onclick="submitReview()">Submit Review</button>
+              </div>
+
+              <!-- Reviews Section -->
+              <div class="reviews">
+                <h2>Reviews</h2>
+                <div id="reviews-list"></div>
+
+                <div id="aggregated-rating">
+                  <h3>Average Rating:</h3>
+                  <span id="average-rating">0</span> / 5
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- rate and review ends -->
+        <!-- 
+    - #FOOTER
+  -->
+
+        <footer class="footer">
+          <div class="footer-bottom">
+            <div class="container">
+              <p class="copyright">
+                &copy; 2024 <a href="#"></a>. All Rights Reserved
+              </p>
+              <a href="#" onclick="showPage('home')" class="logo"
+                ><i class="fa-solid fa-heart-pulse"></i>Together</a
+              >
+              <ul class="social-list">
+                <li>
+                  <a
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-facebook"></ion-icon>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://x.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4iLCJteCI6IjIifQ%3D%3D%22%7D"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-twitter"></ion-icon>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-linkedin"></ion-icon>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://www.instagram.com/accounts/login/"
+                    target="_blank"
+                    class="social-link"
+                  >
+                    <ion-icon name="logo-instagram"></ion-icon>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </footer>
+        <!--  -->
+      </section>
+      <!--  -->
+      <!--  -->
+      <!--  -->
+      <!--  -->
+      <!--  -->
+    </main>
+
+    <!-- script -->
+
+    <!-- icons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- wallpaper -->
+    <!--  -->
+    <!--  -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -- -->
+    <!--  -->
+    <!--  -->
+    <script>
+      function myFunction() {
+        var password = document.getElementById("login-password");
+        var eye = document.getElementById("hide1");
+        var eyeslash = document.getElementById("hide2");
+
+        if (password.type === "password") {
+          password.type = "text";
+          eye.style.display = "block";
+          eyeslash.style.display = "none";
+        } else {
+          password.type = "password";
+          eye.style.display = "none";
+          eyeslash.style.display = "block";
+        }
+      }
+      //forgot
+      document.getElementById("hide3").style.display = "none";
+      function myFunction2() {
+        var password = document.getElementById("forgot-password");
+        var eye = document.getElementById("hide3");
+        var eyeslash = document.getElementById("hide4");
+
+        if (password.type === "password") {
+          password.type = "text";
+          eye.style.display = "block";
+          eyeslash.style.display = "none";
+        } else {
+          password.type = "password";
+          eye.style.display = "none";
+          eyeslash.style.display = "block";
+        }
+      }
+      //  register
+      document.getElementById("hide5").style.display = "none";
+      function myFunction3() {
+        var password = document.getElementById("register-password");
+        var eye = document.getElementById("hide5");
+        var eyeslash = document.getElementById("hide6");
+
+        if (password.type === "password") {
+          password.type = "text";
+          eye.style.display = "block";
+          eyeslash.style.display = "none";
+        } else {
+          password.type = "password";
+          eye.style.display = "none";
+          eyeslash.style.display = "block";
+        }
+      }
+      // update-password
+      document.getElementById("hide7").style.display = "none";
+      function myFunction4() {
+        var password = document.getElementById("update-password");
+        var eye = document.getElementById("hide7");
+        var eyeslash = document.getElementById("hide8");
+
+        if (password.type === "password") {
+          password.type = "text";
+          eye.style.display = "block";
+          eyeslash.style.display = "none";
+        } else {
+          password.type = "password";
+          eye.style.display = "none";
+          eyeslash.style.display = "block";
+        }
+      }
+
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      // DOM elements
+      const generalHeader = document.getElementById("general-header");
+      const userHeader = document.getElementById("user-header");
+      const homePage = document.getElementById("home-page");
+      const loginPage = document.getElementById("login-page");
+      const registerPage = document.getElementById("register-page");
+      const UpdateUserPage = document.getElementById("update-user-page");
+      const sample1Page = document.getElementById("sample1-page");
+      const sample2Page = document.getElementById("sample2-page");
+      const forgotpage = document.getElementById("forgot-page");
+
+      // Login and Register Forms
+      const loginForm = document.getElementById("login-form");
+      const registerForm = document.getElementById("register-form");
+      const updateForm = document.getElementById("update-form");
+
+      //
+
+      // Show the general user header if no one is logged in
+      function showHeader() {
+        const loggedInUser = localStorage.getItem("loggedInUser");
+        if (loggedInUser) {
+          userHeader.style.display = "block";
+          generalHeader.style.display = "none";
+        } else {
+          generalHeader.style.display = "block";
+          userHeader.style.display = "none";
+        }
+      }
+
+      // Function to show specific page
+      function showPage(page) {
+        // Hide all pages first
+        homePage.style.display = "none";
+        loginPage.style.display = "none";
+        registerPage.style.display = "none";
+        sample1Page.style.display = "none";
+        sample2Page.style.display = "none";
+        UpdateUserPage.style.display = "none";
+        forgotpage.style.display = "none";
+
+        // Show the selected page
+        if (page === "home") {
+          homePage.style.display = "block";
+        } else if (page === "login") {
+          loginPage.style.display = "block";
+        } else if (page === "register") {
+          registerPage.style.display = "block";
+        } else if (page === "sample1") {
+          sample1Page.style.display = "block";
+        } else if (page === "sample2") {
+          sample2Page.style.display = "block";
+        } else if (page === "update-user") {
+          UpdateUserPage.style.display = "block";
+        } else if (page === "forgot-user") {
+          forgotpage.style.display = "block";
+        }
+      }
+
+      // Event listeners for general user navigation
+      document
+        .getElementById("home-link")
+        .addEventListener("click", () => showPage("home"));
+      document
+        .getElementById("login-link")
+        .addEventListener("click", () => showPage("login"));
+      document
+        .getElementById("login2-link")
+        .addEventListener("click", () => showPage("login"));
+      document
+        .getElementById("login3-link")
+        .addEventListener("click", () => showPage("login"));
+      document
+        .getElementById("register-link")
+        .addEventListener("click", () => showPage("register"));
+      document.getElementById("forgot-link").addEventListener("click", () => {
+        showPage("forgot-user");
+        updatefotgotpage();
+      });
+
+      document.getElementById("update-link").addEventListener("click", () => {
+        showPage("update-user");
+        const currentuser = JSON.parse(localStorage.getItem("loggedInUser"));
+        document.getElementById("update-name").value = currentuser.name;
+        document.getElementById("update-username").value = currentuser.username;
+        document.getElementById("update-password").value = currentuser.password;
+
+        profileContainer.classList.remove("show");
+        overlay.classList.remove("active");
+      });
+      // Event listeners for logged-in user navigation
+
+      document
+        .getElementById("home-user-link")
+        .addEventListener("click", () => showPage("home"));
+      document
+        .getElementById("sample-1-link")
+        .addEventListener("click", () => showPage("sample1"));
+      document
+        .getElementById("sample-2-link")
+        .addEventListener("click", () => showPage("sample2"));
+
+      // JavaScript for the nav toggle functionality
+      const navToggleIcon = document.getElementById("navToggleIcon");
+      const userNavLinks = document.querySelector(".user-nav-links");
+      const userNavItems = document.querySelectorAll(".user-nav-links li a");
+
+      navToggleIcon.addEventListener("click", () => {
+        // Toggle the 'active' class to show/hide nav links
+        userNavLinks.classList.toggle("active");
+      });
+
+      userNavItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          // userNavItems.classList.remove("open"); // Close the menu
+          userNavLinks.classList.toggle("active");
+          // alert("c");
+        });
+      });
+
+      //
+
+      //
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const notificationIcon = document.getElementById("notificationIcon");
+        const profileIcon = document.getElementById("profileIcon");
+        const notificationContainer = document.getElementById(
+          "notificationContainer"
+        );
+        const profileContainer = document.getElementById("profileContainer");
+        const closeNotificationBtn = document.getElementById(
+          "closeNotificationBtn"
+        );
+        const closeProfileBtn = document.getElementById("closeProfileBtn");
+        const overlay = document.getElementById("overlay");
+
+        function closeAllContainers() {
+          notificationContainer.classList.remove("show");
+          profileContainer.classList.remove("show");
+          overlay.classList.remove("active");
+        }
+
+        // Show notification panel
+        notificationIcon.addEventListener("click", () => {
+          closeAllContainers(); // Close profile if open
+          notificationContainer.classList.add("show");
+          overlay.classList.add("active");
+        });
+
+        // Show profile panel
+        profileIcon.addEventListener("click", () => {
+          closeAllContainers(); // Close notification if open
+          profileContainer.classList.add("show");
+          overlay.classList.add("active");
+        });
+
+        // Close notification panel
+        closeNotificationBtn.addEventListener("click", () => {
+          closeAllContainers();
+        });
+
+        // Close profile panel
+        closeProfileBtn.addEventListener("click", () => {
+          closeAllContainers();
+        });
+
+        // Close panels by clicking on overlay
+        overlay.addEventListener("click", () => {
+          closeAllContainers();
+        });
+      });
+
+      const toggleButton = document.getElementById("modeToggle");
+      const body = document.body;
+      toggleButton.addEventListener("click", () => {
+        if (body.classList.contains("dark-mode")) {
+          // showToast("Toggle mode");
+          body.classList.remove("dark-mode");
+          body.classList.add("light-mode");
+        } else {
+          // showToast("Toggle mode");
+          body.classList.remove("light-mode");
+          body.classList.add("dark-mode");
+        }
+      });
+
+      // Register functionality
+      registerForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("register-name").value;
+        const username = document.getElementById("register-useremail").value;
+        const password = document.getElementById("register-password").value;
+        const uniqueId = crypto.randomUUID();
+
+        // const confirmPassword = document.getElementById(
+        //   "register-confirmpassword"
+        // ).value;
+        // console.log(password);
+        // if (password !== confirmPassword) {
+        //   alert("Passwords do not match");
+        //   return;
+        // }
+
+        if (!/^[A-Za-z\s]+$/.test(name)) {
+          alert("name should contain only letters .");
+          return;
+        }
+
+        if (!username.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+          alert("Please enter a valid email address.");
+          return;
+        }
+
+        if (
+          !/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
+            password
+          )
+        ) {
+          alert(
+            "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+          );
+          return;
+        }
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Check if the user already exists
+        if (users.some((user) => user.username === username)) {
+          alert("User already exists!");
+          return;
+        }
+
+        users.push({ username, password, name, uniqueId });
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Registration successful!");
+        showPage("login");
+      });
+
+      // Login functionality
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = document.getElementById("login-username").value;
+        const password = document.getElementById("login-password").value;
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Check if the user exists and the password matches
+        const user = users.find(
+          (user) => user.username === username && user.password === password
+        );
+
+        if (user) {
+          localStorage.setItem("loggedInUser", JSON.stringify(user));
+          alert("Login successful!");
+          showHeader();
+          userupdate();
+          showPage("home");
+        } else {
+          alert("Invalid username or password!");
+        }
+      });
+
+      //update functionality
+      updateForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Get the form input values
+        const username = document.getElementById("update-username").value;
+        const password = document.getElementById("update-password").value;
+        const name = document.getElementById("update-name").value;
+
+        // Retrieve users and loggedInUser from localStorage
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+        let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+        if (!loggedInUser) {
+          alert("No logged-in user found!");
+          return;
+        }
+
+        // Find the user by uniqueId in the users array
+        const userIndex = users.findIndex(
+          (user) => user.uniqueId === loggedInUser.uniqueId
+        );
+
+        if (userIndex !== -1) {
+          // User found, update their username and password
+          users[userIndex].username = username;
+          users[userIndex].password = password;
+          users[userIndex].name = name;
+
+          // Update users array in localStorage
+          localStorage.setItem("users", JSON.stringify(users));
+
+          // Update the loggedInUser in localStorage with new username and password
+          localStorage.setItem(
+            "loggedInUser",
+            JSON.stringify({
+              username,
+              password,
+              name,
+              uniqueId: loggedInUser.uniqueId,
+            })
+          );
+
+          console.log(
+            "Updated loggedInUser:",
+            localStorage.getItem("loggedInUser")
+          );
+          alert("User Details Updated Successfully!");
+
+          // Optionally redirect or display the home page
+          showPage("home");
+          userupdate();
+        } else {
+          // If the user is not found in the array
+          alert("User not found!");
+        }
+      });
+
+      // Logout functionality
+      document.getElementById("logout-link").addEventListener("click", () => {
+        localStorage.removeItem("loggedInUser");
+        const overlay = document.getElementById("overlay");
+        const profilecontainer = document.getElementById("profileContainer");
+        profilecontainer.classList.remove("show");
+        overlay.classList.remove("active");
+        alert("Logged out successfully!");
+        showHeader();
+        showPage("home");
+      });
+
+      // Initial load
+      showHeader();
+      showPage("home");
+
+      //   //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+
+      //
+      function userupdate() {
+        const currentuser = JSON.parse(localStorage.getItem("loggedInUser"));
+        console.log(currentuser);
+
+        document.getElementById("user-name-email").textContent =
+          currentuser?.username;
+        document.getElementById("user-name-text").textContent =
+          currentuser?.name;
+      }
+      userupdate();
+
+      const verifyEl = document.getElementById("forgotVerifie");
+      verifyEl.addEventListener("click", () => {
+        const users = JSON.parse(localStorage.getItem("users"));
+        console.log(users);
+        const email = document.getElementById("forgot-username").value;
+        if (!users) {
+          alert("No users found in the database");
+          return;
+        }
+        const isUserSaved = users.find((user) => user.username === email);
+        console.log(email, isUserSaved);
+
+        if (isUserSaved) {
+          document.getElementById("forgot-passwordContainer").style.display =
+            "block";
+          document.getElementById("forgotVerifie").style.display = "none";
+          document.getElementById("forgotsubmit").style.display = "block";
+
+          // verifyBtn.style.display = "none";
+          // document.getElementById("forgotten-username").disabled = "disabled";
+        } else {
+          alert("User is not registered");
+        }
+      });
+
+      function updatefotgotpage() {
+        document.getElementById("forgotsubmit").style.display = "none";
+        document.getElementById("forgot-passwordContainer").style.display =
+          "none";
+        document.getElementById("forgotVerifie").style.display = "block";
+      }
+
+      updatefotgotpage();
+
+      const forgottenFormEl = document.getElementById("forgot-form");
+      //
+      forgottenFormEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("forgot-username").value;
+        const password = document.getElementById("forgot-password").value;
+
+        if (
+          !/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
+            password
+          )
+        ) {
+          alert(
+            "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+          );
+          return;
+        }
+        const users = JSON.parse(localStorage.getItem("users"));
+        console.log(users);
+        const userIndex = users.findIndex((user) => user.username === email);
+
+        if (userIndex !== -1) {
+          // User found, update their username and password
+          users[userIndex].password = password;
+
+          // Update users array in localStorage
+          localStorage.setItem("users", JSON.stringify(users));
+
+          alert("User Password Updated Successfully!");
+          userupdate();
+          forgottenFormEl.reset();
+          loginForm.reset();
+
+          // Optionally redirect or display the home page
+          showPage("login");
+        }
+
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+      });
+
+      //
+      //
+      //
+      // new script
+      ("use strict");
+
+      /**
+       * navbar toggle
+       */
+
+      const header = document.querySelector("[data-header]");
+      const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
+      const navLinks = document.querySelectorAll("[data-navbar-link]");
+
+      for (let i = 0; i < navLinks.length; i++) {
+        navLinks[i].addEventListener("click", function () {
+          header.classList.toggle("nav-active");
+          navToggleBtn.classList.toggle("active");
+        });
+      }
+
+      // script.js
+      //
+      //
+      // search starts
+      const exercises = [
+        {
+          title: "Guided Meditation",
+          description: "A calming session to build emotional connection.",
+          tags: ["Meditation"],
+          mediaType: "image",
+          mediaSrc:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735374797/s1_sjhudx.jpg",
+        },
+
+        {
+          title: "Creative Drawing",
+          description: "Express yourself with collaborative art projects.",
+          tags: ["Expression"],
+          mediaType: "image",
+          mediaSrc:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735374797/s6_xy4ypf.jpg",
+        },
+
+        {
+          title: "Trust Building Task",
+          description: "Strengthen bonds through collaborative activities.",
+          tags: ["Trust"],
+          mediaType: "image",
+          mediaSrc:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735374798/s2_npxrne.jpg",
+        },
+        {
+          title: "Shared Journaling",
+          description: "Explore feelings together through guided journaling.",
+          tags: ["Connection"],
+          mediaType: "video",
+          mediaSrc:
+            "https://rr4---sn-a5meknzl.googlevideo.com/videoplayback?expire=1735398082&ei=Yr5vZ4u5F7aDi9oP3L6a-Qg&ip=176.6.144.23&id=o-APiMx_Msm6xpV1MFWj1G1lqHj7y2Gy27vH8eiSnEyXmh&itag=18&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=AfMhrI82Db3q5CiSc_RG90DK1m-IaggvDMeSHqLC8RLGCbol-83XH3oXF2zwQSoquRcpeZwIRWt7DQoF&spc=x-caUF4zSmnqEHgHzXRdD03j-yMRj9ZEwDT7vvoqzVT9b0AvLlaz&vprv=1&svpuc=1&mime=video%2Fmp4&ns=L8HPlgopvTwSHYmcYwp_jyIQ&rqh=1&cnr=14&ratebypass=yes&dur=495.699&lmt=1696647215224019&fexp=24350590,24350737,24350827,24350851,51326932,51335594,51355912,51371294&c=WEB&sefc=1&txp=6218224&n=MhkqgsTJaFuTfQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AJfQdSswRQIgbmyMpwlOcsO0S3ORSRZxngQT_pbYGvP_AhKyxY2oJyACIQCOWfy-drWfifk_nLxho1BWSlrPT76zL7J_NyQDd-mOIg%3D%3D&rm=sn-uxax4vopj5qx-cxge7e&rrc=79,80&req_id=97c0e234980a3ee&redirect_counter=2&cm2rm=sn-4g5eye7s&cms_redirect=yes&cmsv=e&met=1735376486,&mh=uN&mip=2401:b200:2021:41c8:5c18:3d15:61f5:bd94&mm=34&mn=sn-a5meknzl&ms=ltu&mt=1735375113&mv=u&mvi=4&pl=45&rms=ltu,au&lsparams=met,mh,mip,mm,mn,ms,mv,mvi,pl,rms&lsig=AGluJ3MwRAIgYPfx-1JLjYJ_AEzW2HXx9yDzByvQfCS0aN86WLREfYoCIHIZ-QRivVipg7hAoeJZcOy4-u-LJbtpgKGzRyPTBOYP",
+        },
+
+        {
+          title: "Interactive Quiz",
+          description: "Test your knowledge and learn more about intimacy.",
+          tags: ["Interactive"],
+          mediaType: "video",
+          mediaSrc:
+            "https://rr2---sn-a5meknzr.googlevideo.com/videoplayback?expire=1735397017&ei=ObpvZ6esMqXo6dsP-b_XUQ&ip=176.6.137.245&id=o-ADpxOpbIXmud_Td1D6iTrxoU6Xf4nejXcPPANFWvlT2b&itag=18&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=AfMhrI_4WvdxPacNIVL_LT3M5ARr4pK_aWR45HQ72UZRwhN8HU6yZj4tPRgjgLrSLvnFsfPeM7ZWkxup&spc=x-caUFqSi2Hg8aZfyAA-SXBcUvt13d6en7vc0B3JdJqjNbJ9QabM&vprv=1&svpuc=1&mime=video%2Fmp4&ns=DC1D0ZDiXpBB5kG6L27BYxIQ&rqh=1&gir=yes&clen=9740308&ratebypass=yes&dur=187.083&lmt=1728537614846711&fexp=24350590,24350737,24350827,24350851,51326932,51335594,51355912,51371294&c=WEB&sefc=1&txp=8208224&n=Af-KciMDPUka0w&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AJfQdSswRAIhAPbmp1Qh-04B01ZnLPXijU_mQbc9zomh7ZxbeTLuoDpNAh8EAc7WTPztfSXxkQFvGtv3zU4au7yANrCR3RMNGSBQ&rm=sn-uxax4vopj5qx-cxge76&rrc=79,80&req_id=682561d80b43a3ee&redirect_counter=2&cm2rm=sn-4g5ek67z&cms_redirect=yes&cmsv=e&met=1735375422,&mh=36&mip=2401:b200:2021:41c8:5c18:3d15:61f5:bd94&mm=34&mn=sn-a5meknzr&ms=ltu&mt=1735375113&mv=u&mvi=2&pl=45&rms=ltu,au&lsparams=met,mh,mip,mm,mn,ms,mv,mvi,pl,rms&lsig=AGluJ3MwRgIhAOXHQJFXtYQ2I-GzYHTMTLUvtN3UtVXJDh9HDGarGTLhAiEAw7RBpquqH7RM-zbwurzHNLQXd8Ul_MSbzpUXvQfrou0%3D",
+        },
+        {
+          title: "Partner Yoga",
+          description: "Build trust and alignment with these poses.",
+          tags: ["Yoga"],
+          mediaType: "video",
+          mediaSrc:
+            "https://rr5---sn-a5meknd6.googlevideo.com/videoplayback?expire=1735397381&ei=pbtvZ-WXMPK56dsPjcPz2QE&ip=176.1.243.254&id=o-AFJUNlobmPIt3ctZT2hmK0uqzoELI31c10dg8pK3U-r8&itag=18&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=AfMhrI_PxMeQHitVMU0JaDyZ48NmGXd_MdOB0oQ-jGEwZUYlelRxNlD5V2Wm2d5vIl8VD8vDXhsvUH0P&spc=x-caUE5VeT9MqxEZO5_ExgkwNgCDIjM1k_jidK7oUzyCxpENfLFd&vprv=1&svpuc=1&mime=video%2Fmp4&ns=YPkveHfVFOXDc5blNEiDb7cQ&rqh=1&cnr=14&ratebypass=yes&dur=320.342&lmt=1698984241504592&fexp=24350590,24350737,24350827,24350851,51326932,51335594,51355912,51371294&c=WEB&sefc=1&txp=6218224&n=vfAlIkXJ6BXysg&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AJfQdSswRQIgd1AJwrebD565TMOYG3EFjyFeGczY1jDVA_bxek3JcH8CIQDeVDVD9aU8Ue5lQmNf0Xpax9KA_kugSo1EurxIisgUrg%3D%3D&rm=sn-uxax4vopj5qx-q0n67d&rrc=79,80&req_id=435254bb992a3ee&redirect_counter=2&cm2rm=sn-4g5ez676&cms_redirect=yes&cmsv=e&met=1735375785,&mh=8H&mip=2401:b200:2021:41c8:5c18:3d15:61f5:bd94&mm=34&mn=sn-a5meknd6&ms=ltu&mt=1735375113&mv=u&mvi=5&pl=45&rms=ltu,au&lsparams=met,mh,mip,mm,mn,ms,mv,mvi,pl,rms&lsig=AGluJ3MwRQIhAOIOJ8ByGy9H9hYwftqUrULn6maDPXJIUxPwuKN9_SpKAiABcirsuR1rdDlUqrUqOHMsDQue6DYBAskidh2S5t44GQ%3D%3D",
+        },
+      ];
+
+      function createExerciseCard(exercise) {
+        const mediaContent =
+          exercise.mediaType === "video"
+            ? `<video controls><source src="${exercise.mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
+            : `<img src="${exercise.mediaSrc}" alt="${exercise.title}">`;
+
+        return `
+                                      <div class="exercise-card" data-title="${exercise.title.toLowerCase()}" data-tags="${exercise.tags
+          .join(" ")
+          .toLowerCase()}" onclick="showExerciseDetails('${exercise.title}')">
+                                          ${mediaContent}
+                                          <div class="content">
+                                              <h3>${exercise.title}</h3>
+                                              <p>${exercise.description}</p>
+                                              <div class="tags">
+                                                  ${exercise.tags
+                                                    .map(
+                                                      (tag) =>
+                                                        `<span class="tag">${tag}</span>`
+                                                    )
+                                                    .join("")}
+                                              </div>
+                                          </div>
+                                      </div>
+                                  `;
+      }
+
+      function populateExercises() {
+        const exerciseGrid = document.getElementById("exerciseGrid");
+        exerciseGrid.innerHTML = exercises.map(createExerciseCard).join("");
+      }
+
+      function filterExercises() {
+        const searchInput = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const exerciseCards = document.querySelectorAll(".exercise-card");
+
+        exerciseCards.forEach((card) => {
+          const title = card.getAttribute("data-title");
+          const tags = card.getAttribute("data-tags");
+
+          if (title.includes(searchInput) || tags.includes(searchInput)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+
+      function showExerciseDetails(title) {
+        const exercise = exercises.find((e) => e.title === title);
+        document.getElementById("modalTitle").innerText = exercise.title;
+        document.getElementById("modalDescription").innerText =
+          exercise.description;
+        document.getElementById("exerciseModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("exerciseModal").style.display = "none";
+      }
+
+      populateExercises();
+      //
+      //
+      // filter starts
+      // Sample data representing exercises, tools, and features
+      const data = [
+        {
+          id: 1,
+          title: "Crisis Communication 101",
+          category: "tool",
+          popularity: 5,
+          rating: 4.5,
+          description: "Learn basic crisis communication techniques.",
+          image:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735376973/f1_p32fuz.jpg",
+        },
+        {
+          id: 2,
+          title: "Stress Management Exercise",
+          category: "exercise",
+          popularity: 8,
+          rating: 4.7,
+          description: "Exercise to manage stress ",
+          image:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735376972/f2_p0yygi.jpg",
+        },
+        {
+          id: 3,
+          title: "Real-Time Crisis Updates",
+          category: "feature",
+          popularity: 10,
+          rating: 4.8,
+          description: "Feature to get real-time updates on crisis management.",
+          image:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735376972/f3_fkeyy1.jpg",
+        },
+        {
+          id: 4,
+          title: "Negotiation Strategies",
+          category: "exercise",
+          popularity: 3,
+          rating: 4.3,
+          description: "Exercises to improve negotiation during a crisis.",
+          image:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735374798/s4_v2ehjm.jpg",
+        },
+        {
+          id: 5,
+          title: "Team Collaboration Tool",
+          category: "tool",
+          popularity: 9,
+          rating: 5,
+          description:
+            "A tool for real-time team collaboration during emergencies.",
+          image:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735376973/f5_jvhtqh.jpg",
+        },
+        {
+          id: 6,
+          title: "Crisis Response Plan ",
+          category: "feature",
+          popularity: 7,
+          rating: 4.6,
+          description: "Template for creating a crisis response plan.",
+          image:
+            "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1735376973/f6_fcafdr.jpg",
+        },
+      ];
+
+      // Function to display the results
+      function displayResults(filteredData) {
+        const resultsSection = document.getElementById("results-section");
+        resultsSection.innerHTML = ""; // Clear previous results
+
+        filteredData.forEach((item) => {
+          const resultCard = document.createElement("div");
+          resultCard.classList.add("result-card");
+          resultCard.innerHTML = `
+                                <img src="${item.image}" alt="${item.title}">
+                                <h3>${item.title}</h3>
+                                <p>${item.description}</p>
+                                <div class="rating">Rating: ${item.rating} | Popularity: ${item.popularity}</div>
+                            `;
+          resultsSection.appendChild(resultCard);
+        });
+      }
+
+      // Function to filter and sort data
+      function filterAndSortData() {
+        let filteredData = [...data];
+
+        // Search filter
+        const searchQuery = document
+          .getElementById("search-bar")
+          .value.toLowerCase();
+        if (searchQuery) {
+          filteredData = filteredData.filter(
+            (item) =>
+              item.title.toLowerCase().includes(searchQuery) ||
+              item.description.toLowerCase().includes(searchQuery)
+          );
+        }
+
+        // Category filter
+        const categoryFilter = document.getElementById("category-filter").value;
+        if (categoryFilter) {
+          filteredData = filteredData.filter(
+            (item) => item.category === categoryFilter
+          );
+        }
+
+        // Popularity filter
+        const popularityFilter =
+          document.getElementById("popularity-filter").value;
+        if (popularityFilter) {
+          filteredData = filteredData.sort((a, b) => {
+            return popularityFilter === "high"
+              ? b.popularity - a.popularity
+              : a.popularity - b.popularity;
+          });
+        }
+
+        // Rating filter
+        const ratingFilter = document.getElementById("rating-filter").value;
+        if (ratingFilter) {
+          filteredData = filteredData.sort((a, b) => {
+            return ratingFilter === "high"
+              ? b.rating - a.rating
+              : a.rating - b.rating;
+          });
+        }
+
+        displayResults(filteredData);
+      }
+
+      // Event listeners for search bar and filters
+      document
+        .getElementById("search-bar")
+        .addEventListener("input", filterAndSortData);
+      document
+        .getElementById("category-filter")
+        .addEventListener("change", filterAndSortData);
+      document
+        .getElementById("popularity-filter")
+        .addEventListener("change", filterAndSortData);
+      document
+        .getElementById("rating-filter")
+        .addEventListener("change", filterAndSortData);
+
+      // Initial display of all data
+      displayResults(data);
+      //
+      //
+      // profile starts
+      // Function to validate the username to ensure it only contains letters
+      function validateUsername() {
+        const usernameInput = document.getElementById("username");
+        const username = usernameInput.value;
+
+        // Regex to check if username contains only letters
+        const regex = /^[a-zA-Z\s]*$/;
+
+        if (!regex.test(username)) {
+          alert("Please enter a valid name with letters only.");
+          usernameInput.setCustomValidity("Invalid name");
+        } else {
+          usernameInput.setCustomValidity("");
+        }
+
+        updatePreview(); // Update preview whenever input changes
+      }
+
+      // Function to update and display the preview area
+      function updatePreview() {
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const profileImageInput = document.getElementById("profile-image");
+        const profileImageFile = profileImageInput.files[0];
+
+        const layout = document.getElementById("layout-select").value;
+        const dashboardModules = Array.from(
+          document.getElementById("dashboard-modules").selectedOptions
+        ).map((option) => option.value);
+
+        let profileDetails = "";
+        if (username && email && profileImageFile) {
+          const profileImageURL = URL.createObjectURL(profileImageFile);
+          profileDetails = `
+                                <h3>Profile Details</h3>
+                                <img src="${profileImageURL}" alt="Profile Image" class="profile-image">
+                                <p><strong>Name:</strong> ${username}</p>
+                                <p><strong>Email:</strong> ${email}</p>
+                            `;
+        }
+
+        const settingsDetails = `
+                            <h3>App Settings</h3>
+                            <p><strong>Layout:</strong> ${
+                              layout.charAt(0).toUpperCase() + layout.slice(1)
+                            } Layout</p>
+                            <p><strong>Dashboard Modules:</strong> ${
+                              dashboardModules.length
+                                ? dashboardModules.join(", ")
+                                : "None selected"
+                            }</p>
+                        `;
+
+        // Show the preview with updated details
+        const previewArea = document.getElementById("preview-area");
+        previewArea.innerHTML = profileDetails + settingsDetails;
+      }
+
+      // Function to reset all settings to default
+      function resetSettings() {
+        // Reset settings to default
+        document.getElementById("layout-select").value = "default";
+        document.getElementById("dashboard-modules").selectedIndex = -1;
+
+        // Reset preview
+        updatePreview();
+      }
+
+      // Function to delete all profile details and settings
+      function deleteAll() {
+        // Clear all inputs and reset settings
+        document.getElementById("username").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("profile-image").value = "";
+        document.getElementById("layout-select").value = "default";
+        document.getElementById("dashboard-modules").selectedIndex = -1;
+
+        // Reset preview area
+        const previewArea = document.getElementById("preview-area");
+        previewArea.innerHTML =
+          "<p>Preview your profile and settings here.</p>";
+      }
+
+      //
+      //
+      // support.js
+      //
+      //
+      //        }
+      //
+      // help & support
+      // Toggle FAQ answer visibility
+      function toggleFaq(element) {
+        const faqAnswer = element.nextElementSibling;
+        const faqToggle = element.querySelector(".faq-toggle");
+
+        if (faqAnswer.style.display === "block") {
+          faqAnswer.style.display = "none";
+          faqToggle.textContent = "+";
+        } else {
+          faqAnswer.style.display = "block";
+          faqToggle.textContent = "-";
+        }
+      }
+
+      // Handle feedback form submission
+      document
+        .getElementById("feedback-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const feedbackType = document.getElementById("feedback-type").value;
+          const feedbackMessage =
+            document.getElementById("feedback-message").value;
+
+          if (feedbackMessage.trim() !== "") {
+            document.getElementById(
+              "feedback-status"
+            ).textContent = `Thank you for your ${feedbackType}! We appreciate your feedback.`;
+
+            // Reset the form
+            this.reset();
+          } else {
+            alert("Please enter your feedback before submitting.");
+          }
+        });
+
+      //
+
+      // review
+      let reviews = [];
+      let totalRating = 0;
+
+      // Function to submit the review
+      function submitReview() {
+        const rating = document.getElementById("rating").value;
+        const reviewText = document.getElementById("review").value;
+        const imageFile = document.getElementById("image").files[0];
+
+        if (rating && reviewText) {
+          const review = {
+            rating: parseInt(rating),
+            reviewText,
+            imageFile,
+          };
+
+          reviews.push(review);
+          totalRating += review.rating;
+
+          // Add the review to the page
+          displayReviews();
+
+          // Clear form after submission
+          document.getElementById("rating").value = "";
+          document.getElementById("review").value = "";
+          document.getElementById("image").value = "";
+        }
+      }
+
+      // Function to display all reviews
+      function displayReviews() {
+        const reviewsList = document.getElementById("reviews-list");
+        reviewsList.innerHTML = "";
+
+        reviews.forEach((review, index) => {
+          const reviewItem = document.createElement("div");
+          reviewItem.classList.add("review-item");
+          reviewItem.innerHTML = `
+                                          <h3>Rating: ${review.rating} / 5</h3>
+                                          <p>${review.reviewText}</p>
+                                          ${
+                                            review.imageFile
+                                              ? `<img src="${URL.createObjectURL(
+                                                  review.imageFile
+                                                )}" alt="Review Image" style="max-width: 200px;">`
+                                              : ""
+                                          }
+                                          <button class="delete-button" onclick="deleteReview(${index})">Delete Review</button>
+                                          <div class="rating">Rating: ${
+                                            review.rating
+                                          }</div>
+                                      `;
+          reviewsList.appendChild(reviewItem);
+        });
+
+        // Calculate and display average rating
+        const averageRating =
+          reviews.length > 0 ? (totalRating / reviews.length).toFixed(2) : 0;
+        document.getElementById("average-rating").textContent = averageRating;
+      }
+
+      // Function to delete a review
+      function deleteReview(index) {
+        const review = reviews[index];
+        totalRating -= review.rating;
+        reviews.splice(index, 1);
+        displayReviews();
+      }
+      //
+      //
+      //
+      //
+      //
+      //
+      // alerr
+      document.addEventListener("DOMContentLoaded", () => {
+        const panicButton = document.getElementById("panicButton");
+        const alertMessage = document.getElementById("alertMessage");
+        const addContactForm = document.getElementById("addContactForm");
+        const contactList = document.getElementById("contactList");
+        const addResponse = document.getElementById("addResponse");
+        const errorMessage = document.getElementById("errorMessage");
+        const shareDetailsButton =
+          document.getElementById("shareDetailsButton");
+        const shareResponse = document.getElementById("shareResponse");
+        const shareContactsButton = document.getElementById(
+          "shareContactsButton"
+        );
+
+        // Load contacts from localStorage
+        let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+
+        // Panic button alert
+        panicButton.addEventListener("click", () => {
+          alertMessage.classList.remove("hidden");
+          alertMessage.textContent =
+            "🚨 Emergency Alert Sent! Authorities and contacts have been notified. Stay safe!";
+          sendEmergencyAlert();
+        });
+
+        // Add new contact
+        addContactForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const contactNumber = document.getElementById("contact").value.trim();
+
+          // Validate contact number (must be 10 digits)
+          if (/^\d{10}$/.test(contactNumber)) {
+            if (!contacts.includes(contactNumber)) {
+              contacts.push(contactNumber);
+              updateContactList();
+              localStorage.setItem("contacts", JSON.stringify(contacts));
+              addResponse.classList.remove("hidden");
+              addResponse.textContent = `${contactNumber} has been added to your trusted contacts.`;
+              document.getElementById("contact").value = ""; // Clear input
+              errorMessage.classList.add("hidden");
+              // Show the share button if there are contacts
+              if (contacts.length > 0) {
+                shareContactsButton.classList.remove("hidden");
+              }
+            } else {
+              errorMessage.classList.remove("hidden");
+              errorMessage.textContent =
+                "This contact is already in your list.";
+            }
+          } else {
+            errorMessage.classList.remove("hidden");
+            errorMessage.textContent =
+              "Please enter a valid 10-digit phone number.";
+          }
+        });
+
+        // Delete a contact
+        contactList.addEventListener("click", (event) => {
+          if (event.target.classList.contains("delete-contact")) {
+            const contactToDelete = event.target.getAttribute("data-contact");
+            contacts = contacts.filter(
+              (contact) => contact !== contactToDelete
+            );
+            updateContactList();
+            localStorage.setItem("contacts", JSON.stringify(contacts));
+            alert(
+              `${contactToDelete} has been removed from your trusted contacts.`
+            );
+            if (contacts.length === 0) {
+              shareContactsButton.classList.add("hidden");
+            }
+          }
+        });
+
+        // Share app activity details
+        shareDetailsButton.addEventListener("click", () => {
+          if (contacts.length > 0) {
+            shareResponse.classList.remove("hidden");
+            shareResponse.textContent =
+              "Activity details shared with your trusted contacts!";
+            // Simulate sending activity details to each contact
+            console.log("Sharing activity details with:", contacts);
+          } else {
+            alert("You have no trusted contacts to share with.");
+          }
+        });
+
+        // Share contacts with others
+        shareContactsButton.addEventListener("click", () => {
+          if (contacts.length > 0) {
+            alert(
+              `Sharing the following trusted contacts: ${contacts.join(", ")}`
+            );
+            // Simulate sharing contacts, e.g., sending via email or other means
+            console.log("Shared contacts:", contacts);
+            shareResponse.classList.remove("hidden");
+            shareResponse.textContent =
+              "Your trusted contacts have been shared successfully!";
+          } else {
+            alert("You have no contacts to share.");
+          }
+        });
+
+        // Update the contact list UI
+        function updateContactList() {
+          contactList.innerHTML = contacts
+            .map(
+              (contact) => `
+                                <li>
+
+                                  ${contact}
+                                  <button class="delete-contact" data-contact="${contact}">Delete</button>
+                                </li>
+                              `
+            )
+            .join("");
+        }
+
+        // Simulate sending an emergency alert to authorities
+        function sendEmergencyAlert() {
+          console.log("Sending emergency alert...");
+          alert("Emergency alert sent to authorities and contacts.");
+        }
+
+        // Initialize contact list
+        updateContactList();
+      });
+      //
+      //
+      // premium
+      let totalSpent = 0;
+      let transactionHistory = [];
+
+      // Toggle between dashboard and premium features
+      document.getElementById("btn-dashboard").addEventListener("click", () => {
+        document.getElementById("dashboard").classList.remove("hidden");
+        document.getElementById("premium-features").classList.add("hidden");
+        document.getElementById("transaction-history").classList.add("hidden");
+      });
+
+      document.getElementById("btn-premium").addEventListener("click", () => {
+        document.getElementById("premium-features").classList.remove("hidden");
+        document.getElementById("dashboard").classList.add("hidden");
+        document.getElementById("transaction-history").classList.add("hidden");
+      });
+
+      // Handle payment button clicks
+      document.querySelectorAll(".pay-btn, .paypal-btn").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const price = parseInt(event.target.dataset.price);
+          const plan = event.target.dataset.plan;
+          const paymentMethod = event.target.classList.contains("pay-btn")
+            ? "Stripe"
+            : "PayPal";
+          totalSpent += price;
+
+          // Update total spent
+          document.getElementById("total-spent").textContent = `$${totalSpent}`;
+          document.getElementById(
+            "premium-total"
+          ).textContent = `$${totalSpent}`;
+
+          // Log the transaction
+          const transactionDate = new Date().toLocaleDateString();
+          transactionHistory.push({
+            date: transactionDate,
+            plan: plan,
+            amount: `$${price}`,
+            paymentMethod: paymentMethod,
+          });
+
+          // Update transaction history
+          updateTransactionHistory();
+
+          // Placeholder: Redirect to payment gateway
+          alert(`Redirecting to ${paymentMethod} for ${plan}...`);
+        });
+      });
+
+      // Function to update the transaction history table
+      function updateTransactionHistory() {
+        const tableBody = document.querySelector("#transactions-table tbody");
+        tableBody.innerHTML = ""; // Clear existing rows
+
+        transactionHistory.forEach((transaction) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                        <td>${transaction.date}</td>
+                        <td>${transaction.plan}</td>
+                        <td>${transaction.amount}</td>
+                        <td>${transaction.paymentMethod}</td>
+                      `;
+          tableBody.appendChild(row);
+        });
+
+        // Show the transaction history section
+        document
+          .getElementById("transaction-history")
+          .classList.remove("hidden");
+      }
+      //
+      //
+      // remainder notifications process
+      // Set Relationship Progress to 80%
+      document.getElementById("progress-bar").style.width = "80%";
+
+      // Completed Exercises
+      const exercisess = [
+        {
+          name: "Trust Exercise",
+          img: "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1734165676/ad3_cgscrh.jpg",
+        },
+        {
+          name: "Communication Workshop",
+          img: "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1734165675/ad2_ibpkgn.jpg",
+        },
+        {
+          name: "Conflict Resolution Drill",
+          img: "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1734165676/ad5_qsbe5s.jpg",
+        },
+      ];
+
+      const exercisesGallery = document.getElementById("exercise-gallery");
+      exercisess.forEach((exercise) => {
+        const img = document.createElement("img");
+        img.src = exercise.img;
+        img.alt = exercise.name;
+        exercisesGallery.appendChild(img);
+      });
+
+      // Milestones Achieved
+      const milestones = [
+        {
+          name: "First Date",
+          img: "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1734165676/ad7_wrhgel.jpg",
+        },
+        {
+          name: "First Trip Together",
+          img: "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1734165675/ad4_rcwzh9.jpg",
+        },
+        {
+          name: "First Anniversary",
+          img: "https://res.cloudinary.com/dbtlrnyg5/image/upload/v1734165677/ad6_qbd71h.jpg",
+        },
+      ];
+
+      const milestoneList = document.getElementById("milestone-list");
+      milestones.forEach((milestone) => {
+        const milestoneItem = document.createElement("li");
+        milestoneItem.classList.add("milestone-item");
+        milestoneItem.innerHTML = `
+                <span>${milestone.name}</span>
+                <img src="${milestone.img}" alt="${milestone.name}">
+              `;
+        milestoneList.appendChild(milestoneItem);
+      });
+
+      // Personal Reflections
+      const reflectionList = document.getElementById("reflection-list");
+      document
+        .getElementById("add-reflection")
+        .addEventListener("click", () => {
+          const reflectionInput = document
+            .getElementById("reflection-input")
+            .value.trim();
+          if (!reflectionInput) return;
+
+          const reflectionItem = document.createElement("div");
+          reflectionItem.classList.add("reflection-item");
+          reflectionItem.innerHTML = `
+                <span>${reflectionInput}</span>
+                <button class="delete-reflection">Delete</button>
+              `;
+
+          reflectionItem
+            .querySelector(".delete-reflection")
+            .addEventListener("click", () => {
+              reflectionItem.remove();
+            });
+
+          reflectionList.appendChild(reflectionItem);
+          document.getElementById("reflection-input").value = "";
+        });
+
+      // Schedule Activity Logic
+      document
+        .getElementById("schedule-activity")
+        .addEventListener("click", () => {
+          const dateInput = document.getElementById("activity-date").value;
+          const timeInput = document.getElementById("activity-time").value;
+          const errorMessage = document.getElementById("error-message");
+
+          // Validate that both date and time inputs are provided
+          if (!dateInput || !timeInput) {
+            errorMessage.style.display = "block";
+            errorMessage.textContent = "Please select a valid date and time.";
+            return;
+          }
+
+          // Combine date and time into a single Date object
+          const selectedDateTime = new Date(`${dateInput}T${timeInput}`);
+
+          // Validate that the combined Date object is valid
+          if (isNaN(selectedDateTime.getTime())) {
+            errorMessage.style.display = "block";
+            errorMessage.textContent =
+              "Invalid date or time. Please try again.";
+            return;
+          }
+
+          const currentDateTime = new Date();
+
+          // Ensure the selected date and time is in the future
+          if (selectedDateTime <= currentDateTime) {
+            errorMessage.style.display = "block";
+            errorMessage.textContent =
+              "Invalid date! Please select a future date and time.";
+            return;
+          }
+
+          errorMessage.style.display = "none";
+
+          // Format date and time for Google Calendar
+          const startDateTime = selectedDateTime
+            .toISOString()
+            .replace(/-|:|\.\d{3}/g, "");
+          const endDateTime = new Date(
+            selectedDateTime.getTime() + 60 * 60 * 1000
+          ) // 1 hour later
+            .toISOString()
+            .replace(/-|:|\.\d{3}/g, "");
+
+          // Open Google Calendar with the event details
+          const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Intimacy+Building+Activity&dates=${startDateTime}/${endDateTime}&details=Plan+to+strengthen+your+relationship!`;
+
+          window.open(calendarUrl, "_blank");
+        });
+      //
+      //
+      //
+      // charts
+      const chatWindow = document.getElementById("chat-window");
+      const messageInput = document.getElementById("message");
+      const sendButton = document.getElementById("send-button");
+      const chooseFileButton = document.getElementById("choose-file");
+
+      // Add and delete messages
+      sendButton.addEventListener("click", () => {
+        const message = messageInput.value;
+        if (message.trim()) {
+          const messageElement = document.createElement("div");
+          messageElement.textContent = message;
+          messageElement.className = "message";
+
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.onclick = () => {
+            chatWindow.removeChild(messageElement);
+          };
+
+          messageElement.appendChild(deleteButton);
+          chatWindow.appendChild(messageElement);
+          chatWindow.scrollTop = chatWindow.scrollHeight;
+          messageInput.value = "";
+        }
+      });
+
+      // Choose file functionality
+      chooseFileButton.addEventListener("click", () => {
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.onchange = (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            const fileMessage = document.createElement("div");
+            fileMessage.textContent = `File: ${file.name}`;
+
+            const deleteFileButton = document.createElement("button");
+            deleteFileButton.textContent = "Delete";
+            deleteFileButton.onclick = () => {
+              chatWindow.removeChild(fileMessage);
+            };
+
+            fileMessage.appendChild(deleteFileButton);
+            chatWindow.appendChild(fileMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+          }
+        };
+        fileInput.click();
+      });
+
+      const localVideo = document.getElementById("local-video");
+      const remoteVideo = document.getElementById("remote-video");
+      const startCallButton = document.getElementById("start-call");
+      const endCallButton = document.getElementById("end-call");
+
+      let localStream;
+
+      startCallButton.addEventListener("click", async () => {
+        const phoneNumber = prompt(
+          "Enter a 10-digit phone number to start the call:"
+        );
+        if (!/^[0-9]{10}$/.test(phoneNumber)) {
+          alert("Invalid phone number. Please enter a 10-digit number.");
+          return;
+        }
+
+        try {
+          localStream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true,
+          });
+          localVideo.srcObject = localStream;
+        } catch (error) {
+          console.error("Error accessing media devices.", error);
+        }
+      });
+
+      endCallButton.addEventListener("click", () => {
+        if (localStream) {
+          const tracks = localStream.getTracks();
+          tracks.forEach((track) => track.stop());
+          localVideo.srcObject = null;
+        }
+      });
+      //
+      //
+      // notification
+      // script.js
+
+      // Function to show notifications based on the selected type
+      function generateNotification(type) {
+        const exerciseReminder =
+          document.getElementById("exerciseReminder").checked;
+        const progressMilestone =
+          document.getElementById("progressMilestone").checked;
+        const newContent = document.getElementById("newContent").checked;
+        const promotionalOffers =
+          document.getElementById("promotionalOffers").checked;
+
+        let notificationMessage = "";
+
+        if (type === "exerciseReminder" && exerciseReminder) {
+          notificationMessage =
+            "Time for your exercise session! Stay active and keep progressing!";
+        } else if (type === "progressMilestone" && progressMilestone) {
+          notificationMessage =
+            "Congratulations! You have reached a new milestone in your progress!";
+        } else if (type === "newContent" && newContent) {
+          notificationMessage =
+            "New content is available! Check out the latest updates!";
+        } else if (type === "promotionalOffers" && promotionalOffers) {
+          notificationMessage =
+            "Exclusive offer just for you! Don't miss out on this amazing deal!";
+        }
+
+        if (notificationMessage) {
+          showNotification(notificationMessage);
+        }
+      }
+
+      // Function to display the notification box with the message
+      function showNotification(message) {
+        const notificationBox = document.getElementById("notificationBox");
+        const notificationText = document.getElementById("notificationText");
+
+        notificationText.textContent = message;
+        notificationBox.style.display = "block";
+
+        // Hide the notification after 5 seconds
+        setTimeout(() => {
+          notificationBox.style.display = "none";
+        }, 5000);
+      }
+
+      // Handle form submission (saving preferences) - For now, it's just a placeholder
+      document
+        .getElementById("notificationForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Your preferences have been saved.");
+        });
+
+      // Function to set a future notification
+      function setFutureNotification() {
+        const futureDateInput = document.getElementById("futureDate");
+        const futureDate = new Date(futureDateInput.value);
+
+        if (!futureDate || isNaN(futureDate.getTime())) {
+          alert("Please choose a valid date and time.");
+          return;
+        }
+
+        // Calculate the time difference
+        const now = new Date();
+        const timeDifference = futureDate - now;
+
+        if (timeDifference <= 0) {
+          alert("Please choose a future date and time.");
+          return;
+        }
+
+        // Schedule a notification for the future date/time
+        setTimeout(() => {
+          // Display a notification when the time arrives
+          showNotification("It's time for your scheduled notification!");
+        }, timeDifference);
+
+        alert("Notification set for " + futureDate.toLocaleString());
+      }
+    </script>
+  </body>
+</html>
